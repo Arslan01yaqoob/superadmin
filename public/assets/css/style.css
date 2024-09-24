@@ -1,0 +1,255 @@
+:root {
+    --primary-color: #4fc3f7;
+    --primary-hover-color: #bbe6fc;
+    --primary-background-color: #05699f;
+    --simple-text-color: #9d9d9d;
+    --border-color: #9d9d9d3d;
+    --primary-text-color: #092f48;
+    --white-color: white;
+}
+
+.side-menuitem {
+    gap: 1rem;
+}
+
+/**********
+Base styles
+***********/
+
+.top-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-heading p {
+    color: var(--simple-text-color);
+}
+
+.top-heading a {
+    background-color: #4fc3f7;
+    color: var(--white-color) !important;
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: .9rem;
+}
+
+@media (max-width: 994px) {
+    .top-heading h1 {
+        font-size: 1.7rem !important;
+    }
+
+    .top-heading p {
+        font-size: .7rem;
+    }
+
+}
+
+/*****************
+ css for datatable
+ *****************/
+div.dt-container {
+    background-color: var(--white-color);
+    padding: .5rem .3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+
+.form-div {
+    background-color: var(--white-color);
+    padding: 1rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.button-container a {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.button-container img {
+    height: 1rem;
+    width: 1rem;
+}
+
+.imagecontainer {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.imagecontainer img {
+    height: auto;
+    max-height: 10rem;
+}
+
+.tableimg {
+    height: 4rem;
+}
+
+/********************
+ toogle button css 
+*********************/
+
+.slider {
+    background-color: #ffffff2b;
+    border-radius: 100px;
+    padding: 1px;
+    margin: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    align-items: center;
+    position: relative;
+    display: block;
+    width: 45px;
+    height: 23px;
+    box-shadow: rgba(0, 0, 0, 0.62) 0px 0px 5px inset, rgba(0, 0, 0, 0.21) 0px 0px 0px 24px inset,
+        var(--primary-color) 0px 0px 0px 0px inset, rgba(224, 224, 224, 0.45) 0px 1px 0px 0px;
+}
+
+.slider::after {
+    content: "";
+    display: flex;
+    top: 2.3px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: #e3e3e3;
+    border-radius: 200px;
+    position: absolute;
+    box-shadow: transparent 0px 0px 0px 2px, rgba(0, 0, 0, 0.008) 0px 6px 6px;
+    transition: left 300ms cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    will-change: left, background-color;
+}
+
+.switch input[type="checkbox"]:checked+.slider {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 5px inset, var(--primary-color) 0px 0px 0px 2px inset, var(--primary-color) 0px 0px 0px 24px inset,
+        rgba(224, 224, 224, 0.45) 0px 1px 0px 0px;
+}
+
+.switch input[type="checkbox"]:checked+.slider::after {
+    left: 24px;
+}
+
+.switch input[type="checkbox"] {
+    display: none;
+}
+
+.colbutton {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: .3rem .7rem;
+    border-radius: 5px;
+}
+
+/*************
+ table css end 
+**************/
+
+/**********************
+profile css start here 
+***********************/
+
+.coverimage {   
+    
+    border: 1px solid gray ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 22.5rem;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.coverpicinput {
+    background-color: #9d9d9d;
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    padding: 7px;
+    border-radius: 50%;
+}
+
+.coverpicinput img{
+    height: 1.3rem;
+    width: 1.3rem;
+}
+.profilepic {
+    height: 11.25rem;
+    width: 11.25rem;
+    border: 2px solid gray ;
+    background-image: url('https://images.pexels.com/photos/678783/pexels-photo-678783.jpeg?auto=compress&cs=tinysrgb&w=600');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    margin-left: .5rem;
+    margin-top: -7rem;
+    position: relative;
+}
+.profilepicinput{
+    background-color: #9d9d9d;
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+    padding: 7px;
+    border-radius: 50%;
+}
+.profilepicinput img{
+    height: 1.3rem;
+    width: 1.3rem;
+}
+.iti{
+    display: flex !important;
+}
+
+/**************************
+details table css start her
+****************************/
+
+.detailstable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detailstable th, .detailstable td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    vertical-align: middle;   
+}
+
+.detailstable tr   .profile-image{
+    height: 7rem;
+}
+.detailstable th {
+    background-color: var(--primary-color);
+
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.detailstable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.detailstable tr:hover {
+    background-color: #f1f1f1;
+}
+
+.image-preview, .json-preview {
+    transition: opacity 0.5s ease; /* Smooth transition */
+    opacity: 0; /* Initially hidden */
+}
+
+.image-preview.show, .json-preview.show {
+    opacity: 1; /* Fully visible when the class is added */
+}
