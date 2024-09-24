@@ -48,7 +48,8 @@ Route::get('getcities/details/{id}', [CityController::class, 'details'])->name('
 
 // working for onboarding ads 
 Route::get('/get/onboardings',[OnboardingController::class,'view'])->name('onboarding');
-Route::get('/add/onboarding',[OnboardingController::class,'addpage'])->name('addonboardingpage');
+Route::get('/add/onboarding/page',[OnboardingController::class,'addpage'])->name('addonboardingpage');
+Route::post('/addonboarding',[OnboardingController::class,'add'])->name('addonboarding');
 Route::get('/update/onboardingstatus',[OnboardingController::class,'status'])->name('updateonboardingstatus');
 
 

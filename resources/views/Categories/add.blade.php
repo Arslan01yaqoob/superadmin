@@ -60,6 +60,7 @@
 @endsection
 @push('script')
     <script type="text/javascript">
+    
         function validsize() {
             var image = $('#category_image')[0];
             var file = image.files[0];
