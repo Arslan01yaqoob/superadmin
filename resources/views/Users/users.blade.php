@@ -23,7 +23,7 @@
                     <th scope="col">User Name</th>
                     <th scope="col">Country</th>
                     <th scope="col">contact info</th>
-
+                    <th>Account Status</th>
                     <th scope="col">status</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -37,6 +37,8 @@
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->country->country_name }}</td>
                         <td>{{ $data->phone_num ?: $data->email }}</td>
+
+                        <td>{{ $data->account_status}}</td>
 
                         <td>
                             <label class="switch">
@@ -56,7 +58,16 @@
                                     <a class="dropdown-item" href="{{ route('userdetails', ['id' => $data->id]) }}">View
                                         detail</a>
                                     <a class="dropdown-item" href="{{route('userupdatepage',['id'=>$data->id])}}">Edit detail</a>
-                                    <a class="dropdown-item text-danger" href="#">Suspend User</a>
+                                    
+                                    <a class="dropdown-item text-danger" href="{{route('updateaccountstatus',['status'=>1,'user'=>$data->id])}}">Temporarily Blocked</a>
+                                    <a class="dropdown-item text-danger" href="{{route('updateaccountstatus',['status'=>2,'user'=>$data->id])}}">Suspend User</a>
+                                    <a class="dropdown-item text-danger" href="{{route('updateaccountstatus',['status'=>3,'user'=>$data->id])}}">Block Account</a>
+                                    <a class="dropdown-item text-success" href="{{route('updateaccountstatus',['status'=>4,'user'=>$data->id])}}">Active Account</a>
+
+                                
+
+
+
                                 </div>
                             </div>
 

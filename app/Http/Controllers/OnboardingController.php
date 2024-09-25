@@ -8,54 +8,118 @@ use Illuminate\Http\Request;
 
 class OnboardingController extends Controller
 {
-    public function view(){
+    public function view()
+    {
 
-          $ads= Onboarding::get() ;
-          return view('onboarding.onboardingads',compact('ads'));
+        $ads = Onboarding::get();
+        return view('onboarding.onboardingads', compact('ads'));
+    }
+    public function addpage()
+    {
 
+
+        return view('onboarding.add');
     }
 
+    public function add(Request $request)
+    {
 
-        public function addpage(){
-
-
-            return view('onboarding.add');
+        $onboardingCount = Onboarding::count();
+        if ($onboardingCount >= 3) {
+            return redirect()->route('onboarding')->with('error', 'You can only add up to 3 onboarding entries.');
         }
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'category_subtitle' => 'required|string|max:500',
+            'onboarding_image' => 'required|file', // validates image and JSON file
+        ]);
 
-        public function add(Request $request)
-        {
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'category_subtitle' => 'required|string|max:500',
-                  'onboarding_image' => 'required|file', // validates image and JSON files
+        $file = $request->file('onboarding_image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('assets/onboarding_images'), $filename);
+        $imagepath = 'assets/onboarding_images/' . $filename;
 
-            ]);
-        
-            // Handle file upload
-            if ($request->hasFile('onboarding_image')) {
-                $file = $request->file('onboarding_image');
-            
-                $filename = time() . '_' . $file->getClientOriginalName();
-                
-                $file->move(public_path('assets/onboarding_images'), $filename);
-                
-                $validatedData['onboarding_image'] = 'assets/onboarding_images/' . $filename;
-            }
-        
-     
+
+
+        $onboarding = new Onboarding;
+        $onboarding->image_url = $imagepath;
+        $onboarding->title = $request->title;
+        $onboarding->subtitle = $request->category_subtitle;
+
+
+        if ($onboarding->save()) {
             return redirect()->route('onboarding')->with('success', 'Data has been successfully saved.');
+        } else {
+            return redirect()->back()->with('error', 'sorry data does not saved successfully');
         }
-        
+    }
 
     public function status(Request $request)
     {
-
         $ad = Onboarding::find($request->id);
         $ad->status = !$ad->status;
         $ad->save();
         return response()->json(['success' => true]);
     }
+    public function destroy(Request $request)
+    {
+        $onboarding = Onboarding::findorFail($request->addid);
 
 
+        $filePath = public_path($onboarding->image_url);
+
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+        $onboarding->delete();
+
+        return redirect()->route('onboarding')->with('success', 'Data Deleted successfully');
+    }
+
+    public function updatepage($id)
+    {
+
+        $onboarding = Onboarding::findorFail($id);
+        return view('onboarding.eidt', compact('onboarding'));
+    }
+
+    public function update(Request $request, $id)
+{
+
+    $onboarding = Onboarding::findorFail($id);
+
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'category_subtitle' => 'required|string|max:500',
+        'onboarding_image' => 'nullable|file', // image is optional
+    ]);
+
+    // Check if a new image is uploaded
+    if ($request->hasFile('onboarding_image')) {
+        // Unlink the old image if exists
+        if ($onboarding->image_url && file_exists(public_path($onboarding->image_url))) {
+            unlink(public_path($onboarding->image_url));
+        }
+
+        // Store the new image
+        $file = $request->file('onboarding_image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('assets/onboarding_images'), $filename);
+        $imagepath = 'assets/onboarding_images/' . $filename;
+
+        // Update the image URL in the database
+        $onboarding->image_url = $imagepath;
+    }
+
+    // Update other fields
+    $onboarding->title = $request->title;
+    $onboarding->subtitle = $request->category_subtitle;
+
+    if ($onboarding->save()) {
+        return redirect()->route('onboarding')->with('success', 'Data has been successfully updated.');
+    } else {
+        return redirect()->back()->with('error', 'Sorry, data update failed.');
+    }
+}
 
 }

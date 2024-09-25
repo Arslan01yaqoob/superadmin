@@ -37,6 +37,7 @@ Route::get('/state/updatepage/{id}',[StateController::class,'updatepage'])->name
 Route::post('updatestate/{id}',[StateController::class,'update'])->name('updatestate');
 Route::get('get/states/detaisl/{id}',[StateController::class,'details'])->name('getstates');
 
+
 // working for cities
 Route::get('getcities', [CityController::class, 'view'])->name('cities');
 Route::get('/add/city/', [CityController::class, 'addpage'])->name('addnewcitypage');
@@ -51,9 +52,9 @@ Route::get('/get/onboardings',[OnboardingController::class,'view'])->name('onboa
 Route::get('/add/onboarding/page',[OnboardingController::class,'addpage'])->name('addonboardingpage');
 Route::post('/addonboarding',[OnboardingController::class,'add'])->name('addonboarding');
 Route::get('/update/onboardingstatus',[OnboardingController::class,'status'])->name('updateonboardingstatus');
-
-
-
+Route::post('/delete/onboardingadd',[OnboardingController::class,'destroy'])->name('deleteonboarding');
+Route::get('/onboarding/updatepage/{id}', [OnboardingController::class, 'updatepage'])->name('onboardingupdatepage');
+Route::post('update/onboardingadd/{id}',[OnboardingController::class,'update'])->name('updateonboarding');
 
 
 // working for Users
@@ -68,3 +69,4 @@ Route::get('/updateuserstatus', [userController::class, 'status'])->name('update
 Route::get('/userdetails/{id}',[userController::class,'usersdetails'])->name('userdetails');
 Route::get('/edit/userdetails/page/{id}',[userController::class,'editpage'])->name('userupdatepage');
 Route::post('/updateuserdetails/{id}',[userController::class,'update'])->name('user.upate');
+Route::get('/updateaccount/status/{status}/{user}',[userController::class,'accountstatus'])->name('updateaccountstatus');

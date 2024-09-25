@@ -70,21 +70,41 @@
                     </a>
                 </li>
 
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['states','addnestatepage','stateupdatepage']) ? 'active' : '' }} ">
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['states', 'addnestatepage', 'stateupdatepage']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('states') }}">
                         <img src="{{ asset('assets/imgs/icons/state.png') }}" alt="">
                         <span class="text">States</span>
                     </a>
                 </li>
 
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['cities','addnewcitypage','cityupdatepage']) ? 'active' : '' }} ">
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['cities', 'addnewcitypage', 'cityupdatepage']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('cities') }}">
                         <img src="{{ asset('assets/imgs/icons/city.png') }}" alt="">
                         <span class="text">Cities</span>
                     </a>
                 </li>
+                <li
+                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem " href="{{ route('onboarding') }}">
+                        <img src="{{ asset('assets/imgs/icons/report.png') }}" alt="">
+                        <span class="text position-relative">Reports
+                            <span class="badge-count translate-middle badge rounded-pill bg-danger">
+                                99+
+                            </span> 
+                        </span>
+                        </a>
+                        <div class="submenu">
+                            <a href="page-products-grid.html">Section 1</a>
+                            <a href="page-products-grid-2.html">Section 2</a>
+                            <a href="page-categories.html">Section 3</a>
+                        </div>
+                </li>
 
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['onboarding']) ? 'active' : '' }} ">
+
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
                         <img src="{{ asset('assets/imgs/icons/mentor.png') }}" alt="">
                         <span class="text">Onboarding ads</span>
@@ -98,7 +118,8 @@
                     </a>
                 </li>
 
-                <li class="menu-item  {{ in_array(Route::currentRouteName(), ['users', 'adduserpage', 'userdetails', 'userupdatepage']) ? 'active' : '' }}">
+                <li
+                    class="menu-item  {{ in_array(Route::currentRouteName(), ['users', 'adduserpage', 'userdetails', 'userupdatepage']) ? 'active' : '' }}">
                     <a class="menu-link side-menuitem" href="{{ route('users') }}">
                         <img src="{{ asset('assets/imgs/icons/account.png') }}" alt="">
                         <span class="text">Users</span>
@@ -186,6 +207,8 @@
     {{-- external link  --}}
 
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 
     @stack('script')
 

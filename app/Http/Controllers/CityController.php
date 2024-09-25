@@ -110,7 +110,6 @@ class CityController extends Controller
     public function details($id)
     {
 
-        $countryid = $id;
-        return   $cities = Cities::where('country_id', $id)->where('status', 1)->get();
+        return   $cities = Cities::where('state_id', $id)->where('status', 1)->get();
     }
 }

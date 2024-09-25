@@ -501,8 +501,13 @@ b {
   margin-bottom: 5px;
 }
 .side-menuitem img {
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
+}
+.badge-count{
+  position: absolute;
+  top: 0;
+  left: 4rem;
 }
 
 .menu-aside .menu-item .icon {

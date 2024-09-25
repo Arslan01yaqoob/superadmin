@@ -61,6 +61,7 @@
 @endsection
 @push('script')
     <script type="text/javascript">
+        
         function getcities() {
             let countryid = $('#country_id').val()
 
@@ -88,5 +89,7 @@
 
 
         }
+
+
     </script>
 @endpush

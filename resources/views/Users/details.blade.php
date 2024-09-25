@@ -1,3 +1,13 @@
+@push('style')
+<style>
+
+td{
+    font-size: 14px !important;
+}
+
+</style>
+
+@endpush
 @extends('Layout.layout')
 @section('main')
     <div class="container">
@@ -75,8 +85,17 @@
                     </tr>
 
                     <tr>
+                        <td>Account Status</td>
+                        <td>{{ $user->account_status }}</td>
+                    </tr>
+
+                    <tr>
                         <td>Country</td>
                         <td>{{ $user->country->country_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>{{ $user->state->state_name }}</td>
                     </tr>
                     <tr>
                         <td>City</td>

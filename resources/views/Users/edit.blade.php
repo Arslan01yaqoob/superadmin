@@ -100,22 +100,41 @@
                         {{-- country --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="country_id">Country</label>
-                            <select onchange="getcities()" required
+                            <select onchange="getstates()" required
                                 class="form-control @error('country_id') is-invalid @enderror" name="country_id"
                                 id="country_id">
                                 <option value="{{ $user->country->id }}" selected>{{ $user->country->country_name }}</option>
-
                                 @foreach ($countries as $data)
                                     @if ($data->id !== $user->country->id)
                                         <option value="{{ $data->id }}">{{ $data->country_name }}</option>
                                     @endif
                                 @endforeach
-                                
                             </select>
-                            @error('country_id')
+                            @error('country_id') 
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- city_id --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="state_id">State</label>
+                            <select required onchange="getcities()" class="form-control @error('city_id') is-invalid @enderror" name="state_id"
+                                id="state_id">
+                                <option value="{{$user->state->id}}" selected>{{$user->state->state_name}}</option>
+
+                                @foreach ($sates as $data)
+                                @if ($data->id !== $user->state->id)
+                                    <option value="{{ $data->id }}">{{ $data->state_name }}</option>
+                                @endif
+                            @endforeach
+
+                            </select>
+                            @error('city_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
+
 
                         {{-- city_id --}}
                         <div class="col-md-6 form-group mb-4">
@@ -409,21 +428,50 @@
             }
         });
 
-        /**
+                /**
          * ========================================
-         * Fetch Cities Based on Country Selection
+         * Fetch States And Cities Based on Country Selection
          * ========================================
          * Load city options dynamically based on the selected country.
          */
 
+         function getstates() {
+            let countryid = $('#country_id').val()
 
-        function getcities() {
-            var selectedCountryId = $('#country_id').val();
-            if (selectedCountryId) {
+            if (countryid) {
                 $.ajax({
-                    url: '{{ route('getcities', ':id') }}'.replace(':id', selectedCountryId),
+                    url: '{{ route('getstates', ':id') }}'.replace(':id', countryid),
                     type: 'GET',
                     success: function(response) {
+                        
+                        $('#state_id').empty();
+                        $('#state_id').append('<option value="" disabled selected>Select your sates</option>');
+                        $.each(response, function(index, state) {
+                            $('#state_id').append('<option value="' + state.id + '">' + state.state_name +
+                                '</option>');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+
+
+
+        }
+
+        function getcities() {
+            let stateid = $('#state_id').val()
+
+            if (stateid) {
+                $.ajax({
+                    url: '{{ route('getcities', ':id') }}'.replace(':id', stateid),
+                    type: 'GET',
+                    success: function(response) {
+                        console.log(response);
+                        
                         $('#city_id').empty();
                         $('#city_id').append('<option value="" disabled selected>Select your city</option>');
                         $.each(response, function(index, city) {
@@ -436,7 +484,12 @@
                     }
                 });
             }
+
+
+
+
         }
+
         /**
          * ========================================
          * Date of Birth Validation (At Least 18 Years)

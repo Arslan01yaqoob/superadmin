@@ -33,7 +33,7 @@
                         <div class="col-md-6 form-group mb-2">
                             <label class="form-label" for="onboarding_image">Onboarding Image:</label>
                             <input required class="form-control @error('onboarding_image') is-invalid @enderror"
-                                name="onboarding_image" onchange="showImagePreview()" type="file" id="onboarding_image"
+                                name="onboarding_image" type="file" id="onboarding_image"
                                 accept="image/png, image/jpeg, application/json">
                             @error('onboarding_image')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -42,7 +42,8 @@
 
                         <div class="col-md-12 imagecontainer">
                             <img id="image" src="" alt="">
-
+                            <lottie-player id="animation" src="" background="transparent" speed="1"
+                                style="width: 100px; height: 100px;" loop autoplay>
                         </div>
 
 
@@ -56,23 +57,30 @@
     </div>
 @endsection
 @push('script')
+
     <script type="text/javascript">
-        function showImagePreview() {
-            var image = $('#addonboarding')[0];
-            var file = image.files[0];
+        document.getElementById('onboarding_image').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const image = document.getElementById('image');
+            const animation = document.getElementById('animation');
 
             if (file) {
-                var preview = document.getElementById('image');
-                var reader = new FileReader();
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileType = file.type;
 
-                reader.onloadend = function() {
-                    preview.src = reader.result;
-                }
-
+                    if (fileType.startsWith('image/')) {
+                        image.src = e.target.result;
+                        image.style.display = 'block';
+                        animation.style.display = 'none';
+                    } else if (fileType === 'application/json') {
+                        animation.load(e.target.result);
+                        animation.style.display = 'block';
+                        image.style.display = 'none';
+                    }
+                };
                 reader.readAsDataURL(file);
-            } else {
-                preview.src = "";
             }
-        }
+        });
     </script>
 @endpush
