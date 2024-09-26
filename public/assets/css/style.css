@@ -208,6 +208,18 @@ profile css start here
 .iti{
     display: flex !important;
 }
+/*******************************************
+working for input form of user and merchants
+********************************************/
+.lead{
+    font-size: 14px;
+}
+
+#map {
+    width: 100%;
+    height: 40vh;  
+}
+
 
 /**************************
 details table css start her
@@ -254,3 +266,6 @@ details table css start her
 .image-preview.show, .json-preview.show {
     opacity: 1; /* Fully visible when the class is added */
 }
+
+
+

@@ -32,12 +32,11 @@
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="name">Name</label>
                             <input required class="form-control @error('name') is-invalid @enderror" name="name"
-                                type="text" id="name" placeholder="Enter city name" maxlength="50">
+                                type="text" id="name" placeholder="Enter your name" maxlength="50">
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
                         {{-- username --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="username">Username</label>
@@ -74,6 +73,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
                         {{-- phone_num --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="phone_num">Phone Number</label>
@@ -97,7 +97,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
                         {{-- confirm_password --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="confirm_password">Confirm Password</label>
@@ -129,7 +128,7 @@
                         </div>
 
 
-                        {{-- country --}}
+                        {{-- state --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="state_id">State</label>
                             <select onchange="getcities()" required
@@ -144,8 +143,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-
                         {{-- city_id --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="city_id">City</label>
@@ -179,6 +176,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        
                         {{-- description --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="description">Description</label>

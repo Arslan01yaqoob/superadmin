@@ -5,6 +5,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\userController;
@@ -70,3 +71,8 @@ Route::get('/userdetails/{id}',[userController::class,'usersdetails'])->name('us
 Route::get('/edit/userdetails/page/{id}',[userController::class,'editpage'])->name('userupdatepage');
 Route::post('/updateuserdetails/{id}',[userController::class,'update'])->name('user.upate');
 Route::get('/updateaccount/status/{status}/{user}',[userController::class,'accountstatus'])->name('updateaccountstatus');
+
+// merchant route
+
+Route::get('all/merchants',[MerchantController::class,'view'])->name('merchants');
+Route::get('add/new/merchant/page',[MerchantController::class,'addpage'])->name('merchantaddpage');

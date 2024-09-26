@@ -34,9 +34,7 @@
         <div class="aside-top">
             <a href="" class="brand-wrap dashboard-logo">
                 <img src="{{ asset('assets/imgs/theme/logo.png') }}" class="logo" alt="Nest Dashboard" />
-
                 <h4>Dashboard</h4>
-
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"><i
@@ -46,7 +44,6 @@
         <nav>
             <ul class="menu-aside">
                 <li class="menu-item {{ in_array(Route::currentRouteName(), ['dashboard']) ? 'active' : '' }}">
-
                     <a class="menu-link side-menuitem" href="{{ route('dashboard') }}">
                         <img src="{{ asset('assets/imgs/icons/home.png') }}" alt="">
                         <span class="text">Dashboard</span>
@@ -58,6 +55,13 @@
                     <a class="menu-link side-menuitem" href="{{ route('categories') }}">
                         <img src="{{ asset('assets/imgs/icons/category.png') }}" alt="">
                         <span class="text">Categories</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="">
+                        <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
+                        <span class="text">Niches</span>
                     </a>
                 </li>
 
@@ -92,14 +96,14 @@
                         <span class="text position-relative">Reports
                             <span class="badge-count translate-middle badge rounded-pill bg-danger">
                                 99+
-                            </span> 
+                            </span>
                         </span>
-                        </a>
-                        <div class="submenu">
-                            <a href="page-products-grid.html">Section 1</a>
-                            <a href="page-products-grid-2.html">Section 2</a>
-                            <a href="page-categories.html">Section 3</a>
-                        </div>
+                    </a>
+                    <div class="submenu">
+                        <a href="">Section 1</a>
+                        <a href="">Section 2</a>
+                        <a href="">Section 3</a>
+                    </div>
                 </li>
 
 
@@ -111,8 +115,8 @@
                     </a>
                 </li>
 
-                <li class="menu-item ">
-                    <a class="menu-link side-menuitem" href="">
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['merchants']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('merchants') }}">
                         <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
                         <span class="text">Merchats</span>
                     </a>
@@ -208,6 +212,7 @@
 
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWGU9Ivs-0c77WGc74OPmo_hxTRPkRc&libraries=places"></script>
 
 
     @stack('script')

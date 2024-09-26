@@ -39,7 +39,7 @@
                         <td>{{ $data->phone_num ?: $data->email }}</td>
 
                         <td>{{ $data->account_status}}</td>
-
+ 
                         <td>
                             <label class="switch">
                                 <input onchange="updateStatus({{ $data->id }})"
