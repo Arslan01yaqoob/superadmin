@@ -5,7 +5,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\userController;
@@ -74,5 +74,8 @@ Route::get('/updateaccount/status/{status}/{user}',[userController::class,'accou
 
 // merchant route
 
-Route::get('all/merchants',[MerchantController::class,'view'])->name('merchants');
-Route::get('add/new/merchant/page',[MerchantController::class,'addpage'])->name('merchantaddpage');
+Route::get('all/professionals',[ProfessionalController::class,'view'])->name('Professional');
+Route::get('add/new/professional/page',[ProfessionalController::class,'addpage'])->name('professionaladdpage');
+Route::post('/create/new/professional',[ProfessionalController::class,'add'])->name('createprofessional');
+Route::get('/check/username/professional', [ProfessionalController::class, 'checkUsername'])->name('check.username.proffessional');
+Route::get('/check/email/professional', [ProfessionalController::class, 'checkEmail'])->name('check.email.user');

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Merchant extends Model
+class Professional extends Model
 {
     use HasFactory;
 
 
-    protected $table = 'merchants';
+    protected $table = 'professionals';
     protected $hidden = [
         'password',
         'device_tokken'

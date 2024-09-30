@@ -115,10 +115,10 @@
                     </a>
                 </li>
 
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['merchants']) ? 'active' : '' }} ">
-                    <a class="menu-link side-menuitem" href="{{ route('merchants') }}">
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['Professional']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
                         <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
-                        <span class="text">Merchats</span>
+                        <span class="text">Professionals</span>
                     </a>
                 </li>
 
@@ -203,7 +203,6 @@
 
     <!-- Load SweetAlert2 here -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="{{ asset('assets/js/main.js?v=6.0') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/custom-chart.js') }}" type="text/javascript"></script>
 
@@ -213,7 +212,8 @@
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWGU9Ivs-0c77WGc74OPmo_hxTRPkRc&libraries=places"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    
 
     @stack('script')
 

@@ -39,7 +39,9 @@ class userController extends Controller
         $username = $request->input('username');
         $exists = User::where('username', $username)->exists();
         return response()->json(['available' => !$exists]);
+        
     }
+    
     public function checkEmail(Request $request)
     {
         $validator = Validator::make($request->all(), [

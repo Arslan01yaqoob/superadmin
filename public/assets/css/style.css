@@ -183,6 +183,7 @@ profile css start here
 .profilepic {
     height: 11.25rem;
     width: 11.25rem;
+    background-color: var(--white-color);
     border: 2px solid gray ;
     background-image: url('https://images.pexels.com/photos/678783/pexels-photo-678783.jpeg?auto=compress&cs=tinysrgb&w=600');
     background-repeat: no-repeat;

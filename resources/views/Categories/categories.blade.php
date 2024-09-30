@@ -18,6 +18,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Category Image</th>
                     <th scope="col">Category Name</th>
+                    <th scope="col">Niches</th>
+
                     <th scope="col">status</th>
                     <th scope="col">Edit</th>
                 </tr>
@@ -30,7 +32,7 @@
                         <td scope="row"><img class="tableimg" src="{{ $data->category_image }}" alt=""></td>
 
                         <td>{{ $data->category_name }}</td>
-
+                        <td> {{ rand(1, 20) }}   niches</td>
                         <td> <label class="switch">
                                 <input onchange="updateStatus({{ $data->id }})"
                                     {{ $data->status == 1 ? 'checked' : '' }} type="checkbox">
@@ -99,7 +101,5 @@
                 },
             });
         }
-        
-
     </script>
 @endpush
