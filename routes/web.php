@@ -63,8 +63,7 @@ Route::get('/users', [userController::class, 'view'])->name('users');
 Route::get('adduserpage',[userController::class,'addpage'])->name('adduserpage');
 Route::get('/check/username', [userController::class, 'checkUsername'])->name('check.username');
 Route::get('/check/email/user', [userController::class, 'checkEmail'])->name('check.email.user');
-Route::get('/check/phone', [userController::class, 'checkPhone'])->name('check.phone.user');
-Route::get('/check/password/match', [userController::class, 'checkPasswordMatch'])->name('check.password.match');
+Route::get('/check/phone/user', [userController::class, 'checkPhone'])->name('check.phone.user');
 Route::post('adduser',[userController::class,'add'])->name('adduser');
 Route::get('/updateuserstatus', [userController::class, 'status'])->name('updateuserstatus');
 Route::get('/userdetails/{id}',[userController::class,'usersdetails'])->name('userdetails');
@@ -76,6 +75,7 @@ Route::get('/updateaccount/status/{status}/{user}',[userController::class,'accou
 
 Route::get('all/professionals',[ProfessionalController::class,'view'])->name('Professional');
 Route::get('add/new/professional/page',[ProfessionalController::class,'addpage'])->name('professionaladdpage');
-Route::post('/create/new/professional',[ProfessionalController::class,'add'])->name('createprofessional');
 Route::get('/check/username/professional', [ProfessionalController::class, 'checkUsername'])->name('check.username.proffessional');
 Route::get('/check/email/professional', [ProfessionalController::class, 'checkEmail'])->name('check.email.user');
+Route::get('/check/phone/merchant', [ProfessionalController::class, 'checkPhone'])->name('check.phone.professional');
+Route::post('/create/new/professional',[ProfessionalController::class,'add'])->name('createprofessional');

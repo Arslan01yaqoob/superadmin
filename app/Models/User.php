@@ -19,6 +19,10 @@ class User extends Model
     protected $guarded = [
         'password'
     ];
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 
     public function country()
     {

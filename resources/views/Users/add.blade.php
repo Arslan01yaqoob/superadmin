@@ -74,19 +74,19 @@
                             @enderror
                         </div>
 
-{{-- phone_num --}}
-<div class="col-md-6 form-group mb-4">
-    <label class="form-label" for="phone_num">Phone Number</label>
-    <div>
-        <input required class="form-control @error('phone_num') is-invalid @enderror"
-               name="phone_num" type="tel" id="phone_num" placeholder="Enter phone number"
-               maxlength="15">
-        @error('phone_num')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-        <div id="phone_num_feedback" class="invalid-feedback"></div> <!-- Feedback div -->
-    </div>
-</div>
+                        {{-- phone_num --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="phone_num">Phone Number</label>
+                            <div>
+                                <input required class="form-control @error('phone_num') is-invalid @enderror"
+                                    name="phone_num" type="tel" id="phone_num" placeholder="Enter phone number"
+                                    maxlength="15">
+                                @error('phone_num')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <div id="phone_num_feedback" class="invalid-feedback"></div> <!-- Feedback div -->
+                            </div>
+                        </div>
 
                         {{-- password --}}
                         <div class="col-md-6 form-group mb-4">
@@ -96,18 +96,6 @@
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
-                        {{-- confirm_password --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="confirm_password">Confirm Password</label>
-                            <input required class="form-control @error('confirm_password') is-invalid @enderror"
-                                name="confirm_password" type="password" id="confirm_password"
-                                placeholder="Confirm your password">
-
-                            @error('confirm_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <div id="confirm_password_feedback" class="invalid-feedback"></div> <!-- Feedback div -->
                         </div>
 
 
@@ -176,7 +164,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         {{-- description --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="description">Description</label>
@@ -340,94 +328,63 @@
          * ========================================
          * Validate phone number by checking if it is already registered.
          */
-        $('#phone_num').on('blur', function() {
-            var phone_num = $(this).val();
-            if (phone_num.length > 0) { // Ensure there is a phone number entered
-                $.ajax({
-                    url: '{{ route('check.phone.user') }}',
-                    type: 'GET',
-                    data: {
-                        phone_num: phone_num
-                    },
-                    success: function(response) {
-                        if (response.available) {
-                            $('#phone_num').removeClass('is-invalid').addClass('is-valid');
-                            $('#phone_num_feedback').text('');
-                        } else {
-                            $('#phone_num').removeClass('is-valid').addClass('is-invalid');
-
-                            $('#phone_num_feedback').text('Phone number is already taken.');
-                        }
-                    },
-                    error: function(xhr) {
-                        var errors = xhr.responseJSON.errors;
-                        if (errors.phone_num) {
-                            $('#phone_num').removeClass('is-valid').addClass('is-invalid');
-                            $('#phone_num_feedback').text(errors.phone_num[0]);
-                        }
-                    }
-                });
-            } else {
-                $('#phone_num').removeClass('is-valid is-invalid');
-                $('#phone_num_feedback').text('');
-            }
-        });
-        /**
-         * ========================================
-         * Phone Number Input Formatting (IntlTelInput)
-         * ========================================
-         * Automatically set country based on user IP for phone input.
-         */
-         document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener("DOMContentLoaded", function() {
             var input = document.querySelector("#phone_num");
-            window.intlTelInput(input, {
-                initialCountry: "auto",
-                geoIpLookup: function(callback) {
-                    fetch('https://ipinfo.io/json')
-                        .then(response => response.json())
-                        .then(data => callback(data.country))
-                        .catch(() => callback('us'));
-                },
+            var iti = window.intlTelInput(input, {
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
             });
-        });
-        /**
-         * ========================================
-         * Password Matching Validation
-         * ========================================
-         * Check if password and confirm password fields match.
-         */
-        $('#confirm_password').on('blur', function() {
-            var password = $('#password').val();
-            var confirmPassword = $(this).val();
 
-            // Only perform validation if both fields are filled
-            if (password.length > 0 && confirmPassword.length > 0) {
-                $.ajax({
-                    url: '{{ route('check.password.match') }}',
-                    type: 'GET',
-                    data: {
-                        password: password,
-                        confirm_password: confirmPassword
-                    },
-                    success: function(response) {
-                        if (response.match) {
-                            $('#confirm_password').removeClass('is-invalid').addClass('is-valid');
-                            $('#confirm_password_feedback').text('');
-                        } else {
-                            $('#confirm_password').removeClass('is-valid').addClass('is-invalid');
-                            $('#confirm_password_feedback').text('Passwords do not match.');
-                        }
-                    },
-                    error: function(xhr) {
-                        console.log('Error:', xhr);
+            input.addEventListener("blur", function() {
+                var errorMsg = document.querySelector("#phone_num_feedback");
+
+                // Step 1: Check phone number format
+                if (!iti.isValidNumber()) {
+                    errorMsg.textContent = "Invalid phone number.";
+                    input.classList.add("is-invalid");
+                } else {
+                    input.classList.remove("is-invalid");
+                    errorMsg.textContent = "";
+
+                    // Step 2: If valid format, check if the number is unique
+                    var phone_num = input.value;
+                    if (phone_num.length > 0) { // Ensure there is a phone number entered
+                        $.ajax({
+                            url: '{{ route('check.phone.user') }}',
+                            type: 'GET',
+                            data: {
+                                phone_num: phone_num
+                            },
+                            success: function(response) {
+                                if (response.available) {
+                                    $('#phone_num').removeClass('is-invalid').addClass(
+                                        'is-valid');
+                                    $('#phone_num_feedback').text('');
+                                } else {
+                                    $('#phone_num').removeClass('is-valid').addClass(
+                                        'is-invalid');
+                                    $('#phone_num_feedback').text(
+                                        'Phone number is already taken.');
+                                }
+                            },
+                            error: function(xhr) {
+                                var errors = xhr.responseJSON.errors;
+                                if (errors.phone_num) {
+                                    $('#phone_num').removeClass('is-valid').addClass(
+                                        'is-invalid');
+                                    $('#phone_num_feedback').text(errors.phone_num[0]);
+                                }
+                            }
+                        });
+                    } else {
+                        $('#phone_num').removeClass('is-valid is-invalid');
+                        $('#phone_num_feedback').text('');
                     }
-                });
-            } else {
-                $('#confirm_password').removeClass('is-valid is-invalid');
-                $('#confirm_password_feedback').text('');
-            }
+                }
+            });
         });
+
+
+
 
         /**
          * ========================================
@@ -436,7 +393,7 @@
          * Load city options dynamically based on the selected country.
          */
 
-         function getstates() {
+        function getstates() {
             let countryid = $('#country_id').val()
 
             if (countryid) {
@@ -444,11 +401,12 @@
                     url: '{{ route('getstates', ':id') }}'.replace(':id', countryid),
                     type: 'GET',
                     success: function(response) {
-                        
+
                         $('#state_id').empty();
                         $('#state_id').append('<option value="" disabled selected>Select your sates</option>');
                         $.each(response, function(index, state) {
-                            $('#state_id').append('<option value="' + state.id + '">' + state.state_name +
+                            $('#state_id').append('<option value="' + state.id + '">' + state
+                                .state_name +
                                 '</option>');
                         });
                     },
@@ -472,7 +430,7 @@
                     type: 'GET',
                     success: function(response) {
                         console.log(response);
-                        
+
                         $('#city_id').empty();
                         $('#city_id').append('<option value="" disabled selected>Select your city</option>');
                         $.each(response, function(index, city) {
@@ -491,7 +449,7 @@
 
         }
 
-        
+
         /**
          * ========================================
          * Date of Birth Validation (At Least 18 Years)

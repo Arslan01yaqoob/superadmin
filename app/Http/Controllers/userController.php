@@ -18,7 +18,7 @@ class userController extends Controller
 
     public function view()
     {
-        $user = User::with('country')->get();
+        $user = User::with('country')->with('state')->with('city')->get();
         return  view('Users.users', compact('user'));
     }
     public function addpage()
@@ -66,20 +66,8 @@ class userController extends Controller
         $exists = User::where('phone_num', $phone_num)->exists();
         return response()->json(['available' => !$exists]);
     }
-    public function checkPasswordMatch(Request $request)
-    {
-        $password = $request->password;
-        $confirmPassword = $request->confirm_password;
-
-        if ($password === $confirmPassword) {
-            return response()->json(['match' => true]);
-        } else {
-            return response()->json(['match' => false]);
-        }
-    }
     public function add(Request $request)
     {
-        return
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'username' => 'required|string|max:255|unique:users,username',
@@ -95,6 +83,7 @@ class userController extends Controller
                 'description' => 'nullable|string|max:500',
                 'backgrounpic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024',
                 'profilepicinput' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024',
+                'password' =>'required|string|min:6'
             ]);
 
         $user = new User;

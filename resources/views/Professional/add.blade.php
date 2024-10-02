@@ -13,7 +13,7 @@
             <div class="form-div">
 
                 <form action="{{ route('createprofessional') }}" id="form" method="POST" enctype="multipart/form-data">
-
+@csrf
                     <h2 class="mb-4 text-center">Add New Professional</h2>
                     <div id="coverimage"
                         style="background-image: url('{{ asset('assets/imgs/placeholders/cover_p.jpg') }}') "
@@ -37,8 +37,8 @@
                             onchange="profilepic()">
 
                         <!-- *********************************************
-                                   *            Merchant Details Section         *
-                                   ********************************************* -->
+                                                       *            Merchant Details Section         *
+                                                       ********************************************* -->
 
                         <h5>Professional Details:<Details: class="lead">(required)</Details:>
                         </h5>
@@ -71,6 +71,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
                         {{-- phone_num --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="phone_num">Phone Number</label>
@@ -84,6 +85,7 @@
                                 <div id="phone_num_feedback" class="invalid-feedback"></div> <!-- Feedback div -->
                             </div>
                         </div>
+
                         {{-- password --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="password">Password</label>
@@ -93,21 +95,11 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        {{-- confirm_password --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="confirm_password">Confirm Password</label>
-                            <input required class="form-control @error('confirm_password') is-invalid @enderror"
-                                name="confirm_password" type="password" id="confirm_password"
-                                placeholder="Confirm your password">
-                            @error('confirm_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <div id="confirm_password_feedback" class="invalid-feedback"></div> <!-- Feedback div -->
-                        </div>
+
                     </div>
                     <!-- *********************************************
-                        *            Merchant Address Details Section         *
-                        ********************************************* -->
+                                            *            Merchant Address Details Section         *
+                                            ********************************************* -->
                     <h5>Address Details:<Details: class="lead">(required)</Details:>
                     </h5>
                     <div class="row">
@@ -182,11 +174,21 @@
                             <label class="form-label" for="area">Area name</label>
                             <input id="area" name="area" class="form-control" type="text">
                         </div>
-
+                        {{-- working range --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label for="working_range" class="form-label">Working Range (km)</label>
+                            <input type="number" class="form-control" id="working_range" name="working_range" min="1" max="15" step="1" placeholder="Enter working range in km">
+                            <div class="invalid-feedback" id="rangeError" style="display: none;">The working range must not exceed 15 km.</div>
+                            @error('working_range')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        
                     </div>
                     <!-- *********************************************
-                        *            Business  Details Section         *
-                        ********************************************* -->
+                                            *            Business  Details Section         *
+                                            ********************************************* -->
                     <h5>Business Details:<Details: class="lead">(required)</Details:>
                     </h5>
                     <div class="row">
@@ -205,6 +207,23 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
+
+                        {{-- Business Type --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="bussnies_type">Business Type</label>
+                            <select required class="form-control @error('bussnies_type') is-invalid @enderror"
+                                name="bussnies_type" id="bussnies_type">
+                                <option value="" disabled selected>Select the type of your Business</option>
+                                <option value="on_site">On-site</option>
+                                <option value="home_service">Home Service Only</option>
+                                <option value="both">Both</option>
+                            </select>
+                            @error('bussnies_type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
 
 
                         {{-- Working Hours --}}
@@ -228,16 +247,58 @@
                             @enderror
                         </div>
 
+                        {{-- Working Days --}}
+                        <div class="col-md-12 form-group mb-4">
+                            
+                            <label class="form-label">Working Days</label>
+                            <div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="monday" name="working_days[]"
+                                        value="Monday">
+                                    <label class="form-check-label" for="monday">Monday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="tuesday" name="working_days[]"
+                                        value="Tuesday">
+                                    <label class="form-check-label" for="tuesday">Tuesday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="wednesday" name="working_days[]"
+                                        value="Wednesday">
+                                    <label class="form-check-label" for="wednesday">Wednesday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="thursday" name="working_days[]"
+                                        value="Thursday">
+                                    <label class="form-check-label" for="thursday">Thursday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="friday" name="working_days[]"
+                                        value="Friday">
+                                    <label class="form-check-label" for="friday">Friday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="saturday" name="working_days[]"
+                                        value="Saturday">
+                                    <label class="form-check-label" for="saturday">Saturday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="sunday" name="working_days[]"
+                                        value="Sunday">
+                                    <label class="form-check-label" for="sunday">Sunday</label>
+                                </div>
+
+                            </div>
+                            @error('working_days')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="col-12 form-group mb-4">
                             <label class="form-label" for="description">Description:<Details: class="lead">(optional)
                                 </Details:></label>
                             <textarea class="form-control" name="description" id="" rows="3"></textarea>
                             <button type="submit" class="btn btn-primary m-2">Submit</button>
-
                         </div>
-
-
-
 
                     </div>
 
@@ -259,6 +320,11 @@
     </div>
 @endsection
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWGU9Ivs-0c77WGc74OPmo_hxTRPkRc&libraries=places">
+    </script>
+
     <script type="text/javascript">
         /**
          * ========================================
@@ -332,7 +398,7 @@
          * Check if the entered username is available by 
          * making an AJAX request. Add feedback based on the response.
          */
-         $('#username').on('blur', function() {
+        $('#username').on('blur', function() {
             var username = $(this).val();
             if (username.length > 2) { // Optional: Start checking after 3 characters
                 $.ajax({
@@ -343,7 +409,7 @@
                     },
                     success: function(response) {
 
-                        
+
                         if (response.available) {
                             $('#username').removeClass('is-invalid').addClass('is-valid');
                             $('#username-feedback').text('');
@@ -364,7 +430,7 @@
          * ========================================
          * Validate email by checking if it is already registered.
          */
-         $('#email').on('blur', function() {
+        $('#email').on('blur', function() {
             var email = $(this).val();
             if (email.length > 0) { // Ensure there is an email entered
                 $.ajax({
@@ -402,64 +468,60 @@
          * ========================================
          * Validate phone number by checking if it is already registered.
          */
-         $('#phone_num').on('blur', function() {
-            var phone_num = $(this).val();
-            if (phone_num.length > 0) { // Ensure there is a phone number entered
-                $.ajax({
-                    url: '{{ route('check.phone.user') }}',
-                    type: 'GET',
-                    data: {
-                        phone_num: phone_num
-                    },
-                    success: function(response) {
-                        if (response.available) {
-                            $('#phone_num').removeClass('is-invalid').addClass('is-valid');
-                            $('#phone_num_feedback').text('');
-                        } else {
-                            $('#phone_num').removeClass('is-valid').addClass('is-invalid');
-
-                            $('#phone_num_feedback').text('Phone number is already taken.');
-                        }
-                    },
-                    error: function(xhr) {
-                        var errors = xhr.responseJSON.errors;
-                        if (errors.phone_num) {
-                            $('#phone_num').removeClass('is-valid').addClass('is-invalid');
-                            $('#phone_num_feedback').text(errors.phone_num[0]);
-                        }
-                    }
-                });
-            } else {
-                $('#phone_num').removeClass('is-valid is-invalid');
-                $('#phone_num_feedback').text('');
-            }
-        });
-
-
-
-        /**
-         * ========================================
-         * Phone Number Input Formatting (IntlTelInput)
-         * ========================================
-         * Automatically set country based on user IP for phone input.
-         */
-         document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener("DOMContentLoaded", function() {
             var input = document.querySelector("#phone_num");
-            window.intlTelInput(input, {
-                initialCountry: "auto",
-                geoIpLookup: function(callback) {
-                    fetch('https://ipinfo.io/json')
-                        .then(response => response.json())
-                        .then(data => callback(data.country))
-                        .catch(() => callback('us'));
-                },
+            var iti = window.intlTelInput(input, {
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
             });
+
+            input.addEventListener("blur", function() {
+                var errorMsg = document.querySelector("#phone_num_feedback");
+
+                // Step 1: Check phone number format
+                if (!iti.isValidNumber()) {
+                    errorMsg.textContent = "Invalid phone number.";
+                    input.classList.add("is-invalid");
+                } else {
+                    input.classList.remove("is-invalid");
+                    errorMsg.textContent = "";
+
+                    // Step 2: If valid format, check if the number is unique
+                    var phone_num = input.value;
+                    if (phone_num.length > 0) { // Ensure there is a phone number entered
+                        $.ajax({
+                            url: '{{ route('check.phone.professional') }}',
+                            type: 'GET',
+                            data: {
+                                phone_num: phone_num
+                            },
+                            success: function(response) {
+                                if (response.available) {
+                                    $('#phone_num').removeClass('is-invalid').addClass(
+                                        'is-valid');
+                                    $('#phone_num_feedback').text('');
+                                } else {
+                                    $('#phone_num').removeClass('is-valid').addClass(
+                                        'is-invalid');
+                                    $('#phone_num_feedback').text(
+                                        'Phone number is already taken.');
+                                }
+                            },
+                            error: function(xhr) {
+                                var errors = xhr.responseJSON.errors;
+                                if (errors.phone_num) {
+                                    $('#phone_num').removeClass('is-valid').addClass(
+                                        'is-invalid');
+                                    $('#phone_num_feedback').text(errors.phone_num[0]);
+                                }
+                            }
+                        });
+                    } else {
+                        $('#phone_num').removeClass('is-valid is-invalid');
+                        $('#phone_num_feedback').text('');
+                    }
+                }
+            });
         });
-
-
-
-
         /**
          * ========================================
          * Fetch States And Cities Based on Country
@@ -523,8 +585,6 @@
                 event.preventDefault();
             }
         });
-
-
         function initMap() {
             var initialLocation = {
                 lat: -34.397,
@@ -610,6 +670,26 @@
                 updateLocationFields(place.geometry.location);
             });
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+    const inputField = document.getElementById('working_range');
+    const errorMessage = document.getElementById('rangeError');
+
+    // Add an event listener to the input field
+    inputField.addEventListener('input', function() {
+        const value = parseInt(inputField.value, 10);
+
+        // Check if the value is greater than 15
+        if (value > 15) {
+            inputField.classList.add('is-invalid');
+            errorMessage.style.display = 'block';
+        } else {
+            inputField.classList.remove('is-invalid');
+            errorMessage.style.display = 'none';
+        }
+    });
+});
+
         // Initialize the map when the window loads
         window.onload = initMap;
     </script>

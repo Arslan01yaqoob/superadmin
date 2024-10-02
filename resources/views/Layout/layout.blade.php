@@ -211,7 +211,6 @@
 
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWGU9Ivs-0c77WGc74OPmo_hxTRPkRc&libraries=places"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     
 

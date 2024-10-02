@@ -21,6 +21,10 @@ class Professional extends Model
         'password'
     ];
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
     public function country()
     {
             return $this->belongsTo(Countries::class, 'country_id');

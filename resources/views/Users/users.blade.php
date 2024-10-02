@@ -20,8 +20,11 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">User Image</th>
-                    <th scope="col">User Name</th>
+                    <th scope="col">User</th>
                     <th scope="col">Country</th>
+                    <th scope="col">State</th>
+                    <th scope="col">City</th>
+                    
                     <th scope="col">contact info</th>
                     <th>Account Status</th>
                     <th scope="col">status</th>
@@ -33,9 +36,14 @@
                 @foreach ($user as $data)
                     <tr>
                         <td>{{ $data->id }}</td>
-                        <td scope="row"><img class="tableimg" src="{{ $data->image_url }}" alt=""></td>
+                        <td scope="row"><img class="tableimg" src="{{ asset($data->image_url) }}" alt=""></td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->country->country_name }}</td>
+
+                        <td>{{ $data->state->state_name }}</td>
+                        <td>{{ $data->city->city_name }}</td>
+                        
+
                         <td>{{ $data->phone_num ?: $data->email }}</td>
 
                         <td>{{ $data->account_status}}</td>
