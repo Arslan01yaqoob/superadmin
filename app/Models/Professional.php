@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Professional extends Model
 {
     use HasFactory;
 
-    protected $table = 'users';
+
+    protected $table = 'professionals';
     protected $hidden = [
         'password',
         'device_tokken'
@@ -19,11 +20,11 @@ class User extends Model
     protected $guarded = [
         'password'
     ];
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
     }
-
     public function country()
     {
             return $this->belongsTo(Countries::class, 'country_id');
@@ -37,6 +38,12 @@ class User extends Model
     public function city()
     {
             return $this->belongsTo(Cities::class, 'city_id');
+    }
+
+    public function category(){
+
+        return $this->belongsTo(Category::class,'business_category');
+
     }
 
 

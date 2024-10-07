@@ -5,12 +5,17 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\userController;
 
+
+// login Route
+Route::get('/',[DashboardController::class,'loginpage'])->name('loginpage');
+
 // working for dashboard Controller
-Route::get('/', [DashboardController::class, 'view'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'view'])->name('dashboard');
 
 // Working For Categories
 Route::get('/categories', [CategoryController::class, 'view'])->name('categories');
@@ -62,11 +67,25 @@ Route::get('/users', [userController::class, 'view'])->name('users');
 Route::get('adduserpage',[userController::class,'addpage'])->name('adduserpage');
 Route::get('/check/username', [userController::class, 'checkUsername'])->name('check.username');
 Route::get('/check/email/user', [userController::class, 'checkEmail'])->name('check.email.user');
-Route::get('/check/phone', [userController::class, 'checkPhone'])->name('check.phone.user');
-Route::get('/check/password/match', [userController::class, 'checkPasswordMatch'])->name('check.password.match');
+Route::get('/check/phone/user', [userController::class, 'checkPhone'])->name('check.phone.user');
 Route::post('adduser',[userController::class,'add'])->name('adduser');
 Route::get('/updateuserstatus', [userController::class, 'status'])->name('updateuserstatus');
 Route::get('/userdetails/{id}',[userController::class,'usersdetails'])->name('userdetails');
 Route::get('/edit/userdetails/page/{id}',[userController::class,'editpage'])->name('userupdatepage');
 Route::post('/updateuserdetails/{id}',[userController::class,'update'])->name('user.upate');
 Route::get('/updateaccount/status/{status}/{user}',[userController::class,'accountstatus'])->name('updateaccountstatus');
+
+// merchant route
+
+Route::get('all/professionals',[ProfessionalController::class,'view'])->name('Professional');
+Route::get('add/new/professional/page',[ProfessionalController::class,'addpage'])->name('professionaladdpage');
+Route::get('/check/username/professional', [ProfessionalController::class, 'checkUsername'])->name('check.username.proffessional');
+Route::get('/check/email/professional', [ProfessionalController::class, 'checkEmail'])->name('check.email.user');
+Route::get('/check/phone/merchant', [ProfessionalController::class, 'checkPhone'])->name('check.phone.professional');
+Route::post('/create/new/professional',[ProfessionalController::class,'add'])->name('createprofessional');
+Route::get('/professioanl/details/page/{id}',[ProfessionalController::class,'professionaldetails'])->name('professionaldetails');
+Route::get('/updateaccount/professional/status/{status}/{user}',[ProfessionalController::class,'accountstatus'])->name('update.pro.status');
+Route::get('update/professional/page/{id}',[ProfessionalController::class,'updatepage'])->name('update.prof.page');
+Route::post('update/professional/{id}',[ProfessionalController::class,'update'])->name('updateprofessionl');
+
+

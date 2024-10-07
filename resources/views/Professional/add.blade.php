@@ -1,33 +1,47 @@
 @extends('Layout.layout')
 @section('main')
     <div class="container">
-
+        <div class="top-heading px-1 py-2 d-flex">
+            <div class="part1">
+                <h1>Professional</h1>
+                <p>On this screen, you can create Professional.</p>
+            </div>
+            <div class="part2">
+            </div>
+        </div>
         <div class="container mt-5">
-            <h1>User</h1>
             <div class="form-div">
-                <h2 class="mb-4 text-center">Add New User</h2>
-                <div id="coverimage" style="background-image: url('assets/imgs/placeholders/cover.jpg') " class="coverimage">
-                    <div class="coverpicinput" onclick="openimagesbg()">
-                        <img src="{{ asset('assets/imgs/icons/pen.png') }}" alt="">
-                    </div>
-                </div>
-                <div id="profilepic" style="background-image: url('assets/imgs/placeholders/avatar.jpg') "
-                    class="profilepic">
-                    <div class="profilepicinput" onclick="openimagespp()">
-                        <img src="{{ asset('assets/imgs/icons/camera.png') }}" alt="">
-                    </div>
-                </div>
 
-                <form method="POST" action="{{ route('adduser') }}" enctype="multipart/form-data">
+                <form action="{{ route('createprofessional') }}" id="form" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <h2 class="mb-4 text-center">Add New Professional</h2>
+                    <div id="coverimage"
+                        style="background-image: url('{{ asset('assets/imgs/placeholders/cover_p.jpg') }}') "
+                        class="coverimage">
+                        <div class="coverpicinput" onclick="openimagesbg()">
+                            <img src="{{ asset('assets/imgs/icons/pen.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div id="profilepic"
+                        style="background-image: url('{{ asset('assets/imgs/placeholders/avatar_p.jpg') }}') "
+                        class="profilepic">
+                        <div class="profilepicinput" onclick="openimagespp()">
+                            <img src="{{ asset('assets/imgs/icons/camera.png') }}" alt="">
+                        </div>
+                    </div>
 
                     <div class="row">
                         <input type="file" hidden id="backgrounpic" name="backgrounpic" accept="image/*"
                             onchange="backgroundpic()">
-
                         <input type="file" hidden id="profilepicinput" name="profilepicinput" accept="image/*"
                             onchange="profilepic()">
 
+                        <!-- *********************************************
+                                                           *            Merchant Details Section         *
+                                                           ********************************************* -->
+
+                        <h5>Professional Details:<Details: class="lead">(required)</Details:>
+                        </h5>
                         {{-- name --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="name">Name</label>
@@ -47,22 +61,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        {{-- gendar --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="gender">Gender</label>
-                            <select required class="form-control @error('gender') is-invalid @enderror" name="gender"
-                                id="gender">
-                                <option value="" disabled selected>Select your gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                            @error('gender')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
                         {{-- email --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="email">Email</label>
@@ -98,6 +96,14 @@
                             @enderror
                         </div>
 
+                    </div>
+                    <!-- *********************************************
+                                                *            Merchant Address Details Section         *
+                                                ********************************************* -->
+                    <h5>Address Details:<Details: class="lead">(required)</Details:>
+                    </h5>
+                    <div class="row">
+
 
                         {{-- country --}}
                         <div class="col-md-6 form-group mb-4">
@@ -114,8 +120,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-
                         {{-- state --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="state_id">State</label>
@@ -142,20 +146,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        {{-- date_of_birth --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="date_of_birth">Date of Birth</label>
-                            <input required class="form-control @error('date_of_birth') is-invalid @enderror"
-                                name="date_of_birth" type="date" onchange="validateDateOfBirth()" id="date_of_birth"
-                                max="{{ date('Y-m-d') }}">
-                            <div class="invalid-feedback" id="date_of_birth_feedback"></div>
-                            @error('date_of_birth')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- address --}}
+                        {{-- Address --}}
                         <div class="col-md-6 form-group mb-4">
                             <label class="form-label" for="address">Address</label>
                             <input required class="form-control @error('address') is-invalid @enderror" name="address"
@@ -164,31 +155,184 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        {{-- description --}}
+                        {{-- Map --}}
+                        <div class="col-12">
+                            <div id="map"></div>
+                        </div>
+                        {{-- latitude --}}
                         <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="description">Description</label>
-                            <textarea required class="form-control @error('description') is-invalid @enderror" name="description"
-                                id="description" rows="4" placeholder="Enter a short description or bio"></textarea>
-                            @error('description')
+                            <label class="form-label" for="latitude">Latitude</label>
+                            <input id="latitude" name="latitude" class="form-control" type="text" readonly>
+                        </div>
+                        {{-- longitude --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="longitude">Longitude</label>
+                            <input id="longitude" name="longitude" class="form-control" type="text" readonly>
+                        </div>
+                        {{-- area name --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="area">Area name</label>
+                            <input id="area" name="area" class="form-control" type="text">
+                        </div>
+                        {{-- working range --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label for="working_range" class="form-label">Working Range (km)</label>
+                            <input type="number" class="form-control" id="working_range" name="working_range"
+                                min="1" max="15" step="1" placeholder="Enter working range in km">
+                            <div class="invalid-feedback" id="rangeError" style="display: none;">The working range must
+                                not exceed 15 km.</div>
+                            @error('working_range')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+
+                    </div>
+                    <!-- *********************************************
+                                                *            Business  Details Section         *
+                                                ********************************************* -->
+                    <h5>Business Details:<Details: class="lead">(required)</Details:>
+                    </h5>
+                    <div class="row">
+
+                        {{-- category --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="category_id">Category</label>
+                            <select required class="form-control @error('category_id') is-invalid @enderror"
+                                name="category_id" id="category_id">
+                                <option value="" disabled selected>Select the category of your business</option>
+                                @foreach ($categories as $data)
+                                    <option value="{{ $data->id }}">{{ $data->category_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+
+                        {{-- Business Type --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="bussnies_type">Business Type</label>
+                            <select required class="form-control @error('bussnies_type') is-invalid @enderror"
+                                name="bussnies_type" id="bussnies_type">
+                                <option value="" disabled selected>Select the type of your Business</option>
+                                <option value="on_site">On-site</option>
+                                <option value="home_service">Home Service Only</option>
+                                <option value="both">Both</option>
+                            </select>
+                            @error('bussnies_type')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
 
 
+                        {{-- Working Hours --}}
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="working_hours_start">Working Hours <Details: class="lead">
+                                    (Start)</Details:></label>
+                            <input required class="form-control @error('working_hours_start') is-invalid @enderror"
+                                type="time" id="working_hours_start" name="working_hours_start">
+                            @error('working_hours_start')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="working_hours_end">Working Hours <Details: class="lead">
+                                    (End)
+                                </Details:></label>
+                            <input required class="form-control @error('working_hours_end') is-invalid @enderror"
+                                type="time" id="working_hours_end" name="working_hours_end">
+                            @error('working_hours_end')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
+                        {{-- Working Days --}}
+                        <div class="col-md-12 form-group mb-4">
+
+                            <label class="form-label">Working Days</label>
+                            <div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="monday" name="working_days[]"
+                                        value="Monday">
+                                    <label class="form-check-label" for="monday">Monday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="tuesday" name="working_days[]"
+                                        value="Tuesday">
+                                    <label class="form-check-label" for="tuesday">Tuesday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="wednesday" name="working_days[]"
+                                        value="Wednesday">
+                                    <label class="form-check-label" for="wednesday">Wednesday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="thursday" name="working_days[]"
+                                        value="Thursday">
+                                    <label class="form-check-label" for="thursday">Thursday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="friday" name="working_days[]"
+                                        value="Friday">
+                                    <label class="form-check-label" for="friday">Friday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="saturday" name="working_days[]"
+                                        value="Saturday">
+                                    <label class="form-check-label" for="saturday">Saturday</label>
+                                </div>
+                                <div class="form-check d-inline-block me-3">
+                                    <input class="check-input" type="checkbox" id="sunday" name="working_days[]"
+                                        value="Sunday">
+                                    <label class="form-check-label" for="sunday">Sunday</label>
+                                </div>
+
+                            </div>
+                            @error('working_days')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12 form-group mb-4">
+                            <label class="form-label" for="description">Description:<Details: class="lead">(optional)
+                                </Details:></label>
+                            <textarea class="form-control" name="description" id="" rows="3"></textarea>
+                            <button type="submit" class="btn btn-primary m-2">Submit</button>
+                        </div>
 
                     </div>
-                    <button type="submit" class="btn btn-primary">Registra user</button>
+
                 </form>
+
             </div>
         </div>
 
+
+
+
+
+
+
+
+
+
+
     </div>
+
+
+
+
 @endsection
 @push('script')
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWGU9Ivs-0c77WGc74OPmo_hxTRPkRc&libraries=places">
+    </script>
+
+
+    <script type="text/javascript">
         /**
          * ========================================
          * Image Preview Functions
@@ -265,12 +409,14 @@
             var username = $(this).val();
             if (username.length > 2) { // Optional: Start checking after 3 characters
                 $.ajax({
-                    url: '{{ route('check.username') }}',
+                    url: '{{ route('check.username.proffessional') }}',
                     type: 'GET',
                     data: {
                         username: username
                     },
                     success: function(response) {
+
+
                         if (response.available) {
                             $('#username').removeClass('is-invalid').addClass('is-valid');
                             $('#username-feedback').text('');
@@ -322,6 +468,7 @@
                 $('#email-feedback').text('');
             }
         });
+
         /**
          * ========================================
          * Phone Number Validation
@@ -349,7 +496,7 @@
                     var phone_num = input.value;
                     if (phone_num.length > 0) { // Ensure there is a phone number entered
                         $.ajax({
-                            url: '{{ route('check.phone.user') }}',
+                            url: '{{ route('check.phone.professional') }}',
                             type: 'GET',
                             data: {
                                 phone_num: phone_num
@@ -382,17 +529,12 @@
                 }
             });
         });
-
-
-
-
         /**
          * ========================================
-         * Fetch States And Cities Based on Country Selection
+         * Fetch States And Cities Based on Country
          * ========================================
-         * Load city options dynamically based on the selected country.
+         * Load States And Cities options dynamically based on the selected .
          */
-
         function getstates() {
             let countryid = $('#country_id').val()
 
@@ -415,10 +557,6 @@
                     }
                 });
             }
-
-
-
-
         }
 
         function getcities() {
@@ -449,33 +587,119 @@
 
         }
 
-
-        /**
-         * ========================================
-         * Date of Birth Validation (At Least 18 Years)
-         * ========================================
-         * Ensure the user is at least 18 years old based on the selected date of birth.
-         */
-        function validateDateOfBirth() {
-            var today = new Date();
-            var minDate = new Date(today.setFullYear(today.getFullYear() - 18));
-            var minDateString = minDate.toISOString().split('T')[0];
-            var selectedDate = $('#date_of_birth').val();
-
-            if (selectedDate > minDateString) {
-                $('#date_of_birth').addClass('is-invalid');
-                $('#date_of_birth_feedback').text('You must be at least 18 years old.');
-            } else {
-                $('#date_of_birth').removeClass('is-invalid');
-                $('#date_of_birth_feedback').text('');
-            }
-        }
-        // Optional: Validate on form submission
-        $('form').on('submit', function(e) {
-            validateDateOfBirth();
-            if ($('#date_of_birth').hasClass('is-invalid')) {
-                e.preventDefault(); // Prevent form submission if invalid
+        $('#form').on('keydown', function(event) {
+            if (event.key === 'Enter' && event.target.type !== 'textarea') {
+                event.preventDefault();
             }
         });
+
+        function initMap() {
+            var initialLocation = {
+                lat: -34.397,
+                lng: 150.644
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: initialLocation,
+                zoom: 8,
+            });
+
+            // Create the marker and make it draggable
+            var marker = new google.maps.Marker({
+                position: initialLocation,
+                map: map,
+                draggable: true
+            });
+
+            var geocoder = new google.maps.Geocoder();
+
+            function updateLocationFields(latLng) {
+                document.getElementById('latitude').value = latLng.lat();
+                document.getElementById('longitude').value = latLng.lng();
+
+                // Reverse geocoding to get the address and area
+                geocoder.geocode({
+                    'location': latLng
+                }, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            // Get the full formatted address
+                            document.getElementById('address').value = results[0].formatted_address;
+
+                            // Extract the area from the address components
+                            var addressComponents = results[0].address_components;
+                            var area = '';
+
+                            // Loop through the address components to find a suitable area name (locality, sublocality, neighborhood, etc.)
+                            for (var i = 0; i < addressComponents.length; i++) {
+                                var types = addressComponents[i].types;
+                                if (types.includes('sublocality') || types.includes('locality') || types.includes(
+                                        'neighborhood')) {
+                                    area = addressComponents[i].long_name;
+                                    break;
+                                }
+                            }
+
+                            // Set the area name input field
+                            document.getElementById('area').value = area;
+                        }
+                    }
+                });
+            }
+
+
+            // Add an event listener to update the latitude, longitude, and address when the marker is dragged
+            marker.addListener('dragend', function() {
+                var newLatLng = marker.getPosition();
+                updateLocationFields(newLatLng);
+            });
+
+            // Initialize the autocomplete functionality for address input
+            var input = document.getElementById('address');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+
+            // When a user selects an address from the dropdown, move the marker to that location
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    return;
+                }
+
+                // Move the map and marker to the selected place
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+
+                marker.setPosition(place.geometry.location);
+                updateLocationFields(place.geometry.location);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputField = document.getElementById('working_range');
+            const errorMessage = document.getElementById('rangeError');
+
+            // Add an event listener to the input field
+            inputField.addEventListener('input', function() {
+                const value = parseInt(inputField.value, 10);
+
+                // Check if the value is greater than 15
+                if (value > 15) {
+                    inputField.classList.add('is-invalid');
+                    errorMessage.style.display = 'block';
+                } else {
+                    inputField.classList.remove('is-invalid');
+                    errorMessage.style.display = 'none';
+                }
+            });
+        });
+
+        // Initialize the map when the window loads
+        window.onload = initMap;
     </script>
+    
 @endpush

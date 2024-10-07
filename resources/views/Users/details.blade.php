@@ -19,16 +19,17 @@ td{
 
             </div>
             <div class="part2">
-                <a href="{{ route('adduserpage') }}">Add New User</a>
             </div>
         </div>
+<div class="card p-4">
+
 
         <div class="row">
 
             <div class="col-md-6">
                 <h3>Personal Details</h3>
                 
-                <table class="detailstable">
+                <table class="detailstable table table-bordered table-striped">
                     <tr>
                         <th>Fields</th>
                         <th>Details</th>
@@ -73,8 +74,6 @@ td{
 
                 </table>
             </div>
-
-
             <div class="col-md-6">
                 <h3>Other Details</h3>
                 
@@ -126,5 +125,8 @@ td{
             
 
         </div>
+
+    </div>
+
     </div>
 @endsection

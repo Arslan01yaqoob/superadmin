@@ -34,9 +34,7 @@
         <div class="aside-top">
             <a href="" class="brand-wrap dashboard-logo">
                 <img src="{{ asset('assets/imgs/theme/logo.png') }}" class="logo" alt="Nest Dashboard" />
-
                 <h4>Dashboard</h4>
-
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"><i
@@ -46,7 +44,6 @@
         <nav>
             <ul class="menu-aside">
                 <li class="menu-item {{ in_array(Route::currentRouteName(), ['dashboard']) ? 'active' : '' }}">
-
                     <a class="menu-link side-menuitem" href="{{ route('dashboard') }}">
                         <img src="{{ asset('assets/imgs/icons/home.png') }}" alt="">
                         <span class="text">Dashboard</span>
@@ -58,6 +55,20 @@
                     <a class="menu-link side-menuitem" href="{{ route('categories') }}">
                         <img src="{{ asset('assets/imgs/icons/category.png') }}" alt="">
                         <span class="text">Categories</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="">
+                        <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
+                        <span class="text">Niches</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="">
+                        <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
+                        <span class="text">Services</span>
                     </a>
                 </li>
 
@@ -86,20 +97,20 @@
                     </a>
                 </li>
                 <li
-                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
+                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), [ ]) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem " href="{{ route('onboarding') }}">
                         <img src="{{ asset('assets/imgs/icons/report.png') }}" alt="">
                         <span class="text position-relative">Reports
                             <span class="badge-count translate-middle badge rounded-pill bg-danger">
                                 99+
-                            </span> 
+                            </span>
                         </span>
-                        </a>
-                        <div class="submenu">
-                            <a href="page-products-grid.html">Section 1</a>
-                            <a href="page-products-grid-2.html">Section 2</a>
-                            <a href="page-categories.html">Section 3</a>
-                        </div>
+                    </a>
+                    <div class="submenu">
+                        <a href="">Section 1</a>
+                        <a href="">Section 2</a>
+                        <a href="">Section 3</a>
+                    </div>
                 </li>
 
 
@@ -111,10 +122,25 @@
                     </a>
                 </li>
 
-                <li class="menu-item ">
-                    <a class="menu-link side-menuitem" href="">
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
+                        <img src="{{ asset('assets/imgs/icons/notification.png') }}" alt="">
+                        <span class="text">Notification </span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['Professional','update.prof.page','professionaladdpage','professionaldetails',]) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
                         <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
-                        <span class="text">Merchats</span>
+                        <span class="text">Professionals</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
+                        <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
+                        <span class="text">Specialists</span>
                     </a>
                 </li>
 
@@ -199,7 +225,6 @@
 
     <!-- Load SweetAlert2 here -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="{{ asset('assets/js/main.js?v=6.0') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/custom-chart.js') }}" type="text/javascript"></script>
 
@@ -208,7 +233,8 @@
 
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    
 
     @stack('script')
 
