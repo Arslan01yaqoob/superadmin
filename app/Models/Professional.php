@@ -40,6 +40,11 @@ class Professional extends Model
             return $this->belongsTo(Cities::class, 'city_id');
     }
 
+    public function category(){
+
+        return $this->belongsTo(Category::class,'business_category');
+
+    }
 
 
 }

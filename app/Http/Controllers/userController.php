@@ -310,4 +310,5 @@ class userController extends Controller
             return back()->with('error', 'There was an error.');
         }
     }
+    
 }

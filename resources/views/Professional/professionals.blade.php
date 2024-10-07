@@ -50,14 +50,14 @@
                                 <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i
                                         class="material-icons md-more_horiz"></i> </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('userdetails', ['id' => $data->id]) }}">View
+                                    <a class="dropdown-item" href="{{ route('professionaldetails', ['id' => $data->id]) }}">View
                                         detail</a>
-                                    <a class="dropdown-item" href="{{route('userupdatepage',['id'=>$data->id])}}">Edit detail</a>
+                                    <a class="dropdown-item" href="{{route('update.prof.page',['id'=>$data->id])}}">Edit detail</a>
                                     
-                                    <a class="dropdown-item text-danger" href="{{route('updateaccountstatus',['status'=>1,'user'=>$data->id])}}">Temporarily Blocked</a>
-                                    <a class="dropdown-item text-danger" href="{{route('updateaccountstatus',['status'=>2,'user'=>$data->id])}}">Suspend User</a>
-                                    <a class="dropdown-item text-danger" href="{{route('updateaccountstatus',['status'=>3,'user'=>$data->id])}}">Block Account</a>
-                                    <a class="dropdown-item text-success" href="{{route('updateaccountstatus',['status'=>4,'user'=>$data->id])}}">Active Account</a>
+                                    <a class="dropdown-item text-danger" href="{{route('update.pro.status',['status'=>1,'user'=>$data->id])}}">Temporarily Blocked</a>
+                                    <a class="dropdown-item text-danger" href="{{route('update.pro.status',['status'=>2,'user'=>$data->id])}}">Suspend User</a>
+                                    <a class="dropdown-item text-danger" href="{{route('update.pro.status',['status'=>3,'user'=>$data->id])}}">Block Account</a>
+                                    <a class="dropdown-item text-success" href="{{route('update.pro.status',['status'=>4,'user'=>$data->id])}}">Active Account</a>
 
                                 
 
@@ -83,7 +83,13 @@
 @endsection
 @push('script')
     <script type="text/javascript">
-        $(document).ready(function() {
+   
+   $(document).ready(function() {
+            $('#datatabel').DataTable();
+        });
+
+   
+   $(document).ready(function() {
             @if (session('success'))
                 Swal.fire({
                     icon: 'success',

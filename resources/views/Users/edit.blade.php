@@ -390,43 +390,7 @@
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
             });
         });
-        /**
-         * ========================================
-         * Password Matching Validation
-         * ========================================
-         * Check if password and confirm password fields match.
-         */
-        $('#confirm_password').on('blur', function() {
-            var password = $('#password').val();
-            var confirmPassword = $(this).val();
 
-            // Only perform validation if both fields are filled
-            if (password.length > 0 && confirmPassword.length > 0) {
-                $.ajax({
-                    url: '{{ route('check.password.match') }}',
-                    type: 'GET',
-                    data: {
-                        password: password,
-                        confirm_password: confirmPassword
-                    },
-                    success: function(response) {
-                        if (response.match) {
-                            $('#confirm_password').removeClass('is-invalid').addClass('is-valid');
-                            $('#confirm_password_feedback').text('');
-                        } else {
-                            $('#confirm_password').removeClass('is-valid').addClass('is-invalid');
-                            $('#confirm_password_feedback').text('Passwords do not match.');
-                        }
-                    },
-                    error: function(xhr) {
-                        console.log('Error:', xhr);
-                    }
-                });
-            } else {
-                $('#confirm_password').removeClass('is-valid is-invalid');
-                $('#confirm_password_feedback').text('');
-            }
-        });
 
                 /**
          * ========================================

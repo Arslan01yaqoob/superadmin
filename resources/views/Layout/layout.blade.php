@@ -65,6 +65,13 @@
                     </a>
                 </li>
 
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="">
+                        <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
+                        <span class="text">Services</span>
+                    </a>
+                </li>
+
 
                 <li
                     class="menu-item {{ in_array(Route::currentRouteName(), ['countries', 'addnewcountrypage', 'countryupdatepage']) ? 'active' : '' }} ">
@@ -90,7 +97,7 @@
                     </a>
                 </li>
                 <li
-                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
+                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), [ ]) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem " href="{{ route('onboarding') }}">
                         <img src="{{ asset('assets/imgs/icons/report.png') }}" alt="">
                         <span class="text position-relative">Reports
@@ -115,10 +122,25 @@
                     </a>
                 </li>
 
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['Professional']) ? 'active' : '' }} ">
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
+                        <img src="{{ asset('assets/imgs/icons/notification.png') }}" alt="">
+                        <span class="text">Notification </span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['Professional','update.prof.page','professionaladdpage','professionaldetails',]) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
                         <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
                         <span class="text">Professionals</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
+                        <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
+                        <span class="text">Specialists</span>
                     </a>
                 </li>
 

@@ -3388,7 +3388,7 @@ body.offcanvas-active {
   margin-left: auto;
   margin-right: auto;
   background-color: #f8f9fa;
-  min-height: calc(100vh - 60px);
+  min-height: calc(80vh - 60px);
 }
 
 .dropdown-menu-end {

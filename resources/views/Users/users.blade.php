@@ -98,6 +98,9 @@
         $(document).ready(function() {
             $('#datatabel').DataTable();
         });
+
+
+        
         $(document).ready(function() {
             @if (session('success'))
                 Swal.fire({

@@ -13,7 +13,7 @@
             <div class="form-div">
 
                 <form action="{{ route('createprofessional') }}" id="form" method="POST" enctype="multipart/form-data">
-@csrf
+                    @csrf
                     <h2 class="mb-4 text-center">Add New Professional</h2>
                     <div id="coverimage"
                         style="background-image: url('{{ asset('assets/imgs/placeholders/cover_p.jpg') }}') "
@@ -37,8 +37,8 @@
                             onchange="profilepic()">
 
                         <!-- *********************************************
-                                                       *            Merchant Details Section         *
-                                                       ********************************************* -->
+                                                           *            Merchant Details Section         *
+                                                           ********************************************* -->
 
                         <h5>Professional Details:<Details: class="lead">(required)</Details:>
                         </h5>
@@ -98,8 +98,8 @@
 
                     </div>
                     <!-- *********************************************
-                                            *            Merchant Address Details Section         *
-                                            ********************************************* -->
+                                                *            Merchant Address Details Section         *
+                                                ********************************************* -->
                     <h5>Address Details:<Details: class="lead">(required)</Details:>
                     </h5>
                     <div class="row">
@@ -177,18 +177,20 @@
                         {{-- working range --}}
                         <div class="col-md-6 form-group mb-4">
                             <label for="working_range" class="form-label">Working Range (km)</label>
-                            <input type="number" class="form-control" id="working_range" name="working_range" min="1" max="15" step="1" placeholder="Enter working range in km">
-                            <div class="invalid-feedback" id="rangeError" style="display: none;">The working range must not exceed 15 km.</div>
+                            <input type="number" class="form-control" id="working_range" name="working_range"
+                                min="1" max="15" step="1" placeholder="Enter working range in km">
+                            <div class="invalid-feedback" id="rangeError" style="display: none;">The working range must
+                                not exceed 15 km.</div>
                             @error('working_range')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
-                        
+
+
                     </div>
                     <!-- *********************************************
-                                            *            Business  Details Section         *
-                                            ********************************************* -->
+                                                *            Business  Details Section         *
+                                                ********************************************* -->
                     <h5>Business Details:<Details: class="lead">(required)</Details:>
                     </h5>
                     <div class="row">
@@ -249,7 +251,7 @@
 
                         {{-- Working Days --}}
                         <div class="col-md-12 form-group mb-4">
-                            
+
                             <label class="form-label">Working Days</label>
                             <div>
                                 <div class="form-check d-inline-block me-3">
@@ -318,12 +320,17 @@
 
 
     </div>
+
+
+
+
 @endsection
 @push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWGU9Ivs-0c77WGc74OPmo_hxTRPkRc&libraries=places">
     </script>
+
 
     <script type="text/javascript">
         /**
@@ -585,6 +592,7 @@
                 event.preventDefault();
             }
         });
+
         function initMap() {
             var initialLocation = {
                 lat: -34.397,
@@ -672,25 +680,26 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-    const inputField = document.getElementById('working_range');
-    const errorMessage = document.getElementById('rangeError');
+            const inputField = document.getElementById('working_range');
+            const errorMessage = document.getElementById('rangeError');
 
-    // Add an event listener to the input field
-    inputField.addEventListener('input', function() {
-        const value = parseInt(inputField.value, 10);
+            // Add an event listener to the input field
+            inputField.addEventListener('input', function() {
+                const value = parseInt(inputField.value, 10);
 
-        // Check if the value is greater than 15
-        if (value > 15) {
-            inputField.classList.add('is-invalid');
-            errorMessage.style.display = 'block';
-        } else {
-            inputField.classList.remove('is-invalid');
-            errorMessage.style.display = 'none';
-        }
-    });
-});
+                // Check if the value is greater than 15
+                if (value > 15) {
+                    inputField.classList.add('is-invalid');
+                    errorMessage.style.display = 'block';
+                } else {
+                    inputField.classList.remove('is-invalid');
+                    errorMessage.style.display = 'none';
+                }
+            });
+        });
 
         // Initialize the map when the window loads
         window.onload = initMap;
     </script>
+    
 @endpush

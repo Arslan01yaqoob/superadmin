@@ -259,6 +259,9 @@ details table css start her
     background-color: #f1f1f1;
 }
 
+/* work end for user detaisls table  */
+
+
 .image-preview, .json-preview {
     transition: opacity 0.5s ease; /* Smooth transition */
     opacity: 0; /* Initially hidden */
@@ -267,6 +270,9 @@ details table css start her
 .image-preview.show, .json-preview.show {
     opacity: 1; /* Fully visible when the class is added */
 }
+
+/* work for professional details table  */
+
 
 
 

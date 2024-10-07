@@ -10,8 +10,12 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\userController;
 
+
+// login Route
+Route::get('/',[DashboardController::class,'loginpage'])->name('loginpage');
+
 // working for dashboard Controller
-Route::get('/', [DashboardController::class, 'view'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'view'])->name('dashboard');
 
 // Working For Categories
 Route::get('/categories', [CategoryController::class, 'view'])->name('categories');
@@ -79,3 +83,9 @@ Route::get('/check/username/professional', [ProfessionalController::class, 'chec
 Route::get('/check/email/professional', [ProfessionalController::class, 'checkEmail'])->name('check.email.user');
 Route::get('/check/phone/merchant', [ProfessionalController::class, 'checkPhone'])->name('check.phone.professional');
 Route::post('/create/new/professional',[ProfessionalController::class,'add'])->name('createprofessional');
+Route::get('/professioanl/details/page/{id}',[ProfessionalController::class,'professionaldetails'])->name('professionaldetails');
+Route::get('/updateaccount/professional/status/{status}/{user}',[ProfessionalController::class,'accountstatus'])->name('update.pro.status');
+Route::get('update/professional/page/{id}',[ProfessionalController::class,'updatepage'])->name('update.prof.page');
+Route::post('update/professional/{id}',[ProfessionalController::class,'update'])->name('updateprofessionl');
+
+
