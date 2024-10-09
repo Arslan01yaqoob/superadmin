@@ -5,6 +5,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NicheController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\StateController;
@@ -20,7 +21,7 @@ Route::post('login/superadmin', [SuperadminController::class, 'login'])->name('l
 
 Route::middleware(['isAdminlogin'])->group(function () {
 
-Route::get('/logout',[SuperadminController::class,'logout'])->name('logout');
+    Route::get('/logout', [SuperadminController::class, 'logout'])->name('logout');
 
     Route::get('/dashboard', [DashboardController::class, 'view'])->name('dashboard');
     // Working For Categories
@@ -30,6 +31,18 @@ Route::get('/logout',[SuperadminController::class,'logout'])->name('logout');
     Route::get('/updatecategorystatus', [CategoryController::class, 'status'])->name('updatecategorystatus');
     Route::get('/category/updatepage/{id}', [CategoryController::class, 'updatepage'])->name('categoryupdatepage');
     Route::post('/updatecategory/{id}', [CategoryController::class, 'update'])->name('updatecategory');
+
+    // working for niche 
+    Route::get('/niches', [NicheController::class, 'view'])->name('niches');
+    Route::get('/niche/addpage', [NicheController::class, 'addpage'])->name('nicheaddpage');
+    Route::get('/updatenichestatus', [NicheController::class, 'status'])->name('updatenichestatus');
+    Route::post('/addniche', [NicheController::class, 'add'])->name('addniche');
+    Route::get('niche/updatepage/{id}', [NicheController::class, 'updatepage'])->name('nicheupdatepage');
+    Route::post('update/niche/{id}', [NicheController::class, 'update'])->name('updateniche');
+
+
+
+
 
     // working for Countries
     Route::get('/countries', [CountryController::class, 'view'])->name('countries');

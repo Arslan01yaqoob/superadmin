@@ -1,26 +1,24 @@
 @extends('Layout.layout')
 @section('main')
-    {{-- seesion alerts --}}
     <div class="container">
         <div class="top-heading px-1 py-2 d-flex">
             <div class="part1">
-                <h1>Categories</h1>
-                <p>On this screen, you can create, add, or delete categories.</p>
+                <h1>Niches</h1>
+                <p>On this screen, you can create, add, or delete Niches.</p>
             </div>
             <div class="part2">
-                <a href="{{ route('addnewcatepage') }}">Add New</a>
+                <a href="{{ route('nicheaddpage') }}">Add New</a>
             </div>
 
         </div>
-
 
         <table class="table" id="datatabel">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Category Image</th>
+                    <th scope="col">Niche Name</th>
                     <th scope="col">Category Name</th>
-                    <th scope="col">Niches</th>
+                    <th scope="col">Active services</th>
 
                     <th scope="col">status</th>
                     <th scope="col">Edit</th>
@@ -28,13 +26,14 @@
             </thead>
             <tbody>
 
-                @foreach ($categories as $data)
+                @foreach ($niches as $data)
                     <tr>
                         <td>{{ $data->id }}</td>
-                        <td scope="row"><img class="tableimg" src="{{ $data->category_image }}" alt=""></td>
 
-                        <td>{{ $data->category_name }}</td>
-                        <td> {{ rand(1, 20) }}   niches</td>
+                        <td>{{ $data->niche_name }}</td>
+                        <td scope="row">{{ $data->category->category_name }}</td>
+
+                        <td> {{ rand(1, 20) }} Services</td>
                         <td> <label class="switch">
                                 <input onchange="updateStatus({{ $data->id }})"
                                     {{ $data->status == 1 ? 'checked' : '' }} type="checkbox">
@@ -42,20 +41,14 @@
                             </label></td>
                         <td>
                             <div class="button-container">
-                                <a href="{{ route('categoryupdatepage', ['id' => $data->id]) }}" class="btn btn-info"><img
+                                <a href="{{ route('nicheupdatepage', ['id' => $data->id]) }}" class="btn btn-info"><img
                                         src="{{ asset('assets/imgs/icons/edit.png') }}" alt=""></a>
-
-
                             </div>
                         </td>
                     </tr>
                 @endforeach
-
             </tbody>
-
         </table>
-    
-
     </div>
 @endsection
 @push('script')
@@ -90,7 +83,7 @@
         // updating category status
         function updateStatus(id) {
             $.ajax({
-                url: "{{ route('updatecategorystatus') }}",
+                url: "{{ route('updatenichestatus') }}",
                 type: "Get",
                 data: {
                     _token: "{{ csrf_token() }}",

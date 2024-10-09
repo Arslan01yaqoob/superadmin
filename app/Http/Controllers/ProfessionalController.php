@@ -224,7 +224,6 @@ class ProfessionalController extends Controller
 
         return view('Professional.edit', compact('professional', 'country', 'categories', 'sates', 'cities'));
     }
-
     public function update(Request $request, $id)
     {
         // Validate the incoming request

@@ -58,8 +58,8 @@
                     </a>
                 </li>
 
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
-                    <a class="menu-link side-menuitem" href="">
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['niches','nicheaddpage']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="{{route('niches')}}">
                         <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
                         <span class="text">Niches</span>
                     </a>
@@ -68,7 +68,7 @@
                 <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
                     <a class="menu-link side-menuitem" href="">
                         <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
-                        <span class="text">Services</span>
+                        <span class="text">Services Names</span>
                     </a>
                 </li>
 

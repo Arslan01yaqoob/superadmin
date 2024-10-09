@@ -78,7 +78,7 @@
     
                         </div>
 
-                        <div class="p-2">
+                        <div class="p-2 my-3">
                             <input type="checkbox" id="showPassword" />
                             <label for="showPassword" class="ms-2">Show Password</label>
                         </div>
