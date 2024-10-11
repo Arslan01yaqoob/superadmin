@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Only Offers</title>
+    <title>Yoneti</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,13 +53,13 @@
                 <div class="card-body">
                     <h4 class="card-title mb-2 text-center">Login to Admin Panel</h4>
 
-                    <form method="get" action="{{ route('dashboard') }}">
+                    <form method="POST" action="{{ route('login.post') }}">
                         @csrf
                         <label for="Username or email" class="form-label">Username or email:</label>
-                        <input value="{{ old('Email') }}"
-                            class="form-control @error('Email') is-invalid @enderror  @error('login_error') is-invalid @enderror"
-                            placeholder="Username or email" name="Email" type="text" />
-                        @error('Email')
+                        <input value="{{ old('username') }}"
+                            class="form-control @error('username') is-invalid @enderror  @error('login_error') is-invalid @enderror"
+                            placeholder="Username or email" name="username" type="text" />
+                        @error('username')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -67,21 +67,21 @@
 
                         <label for="password" class="form-label">Password:</label>
                         <div class="input-group mb-2">
-                            <input value="{{ old('Password') }}"
-                                class="form-control @error('Password') is-invalid @enderror @error('login_error') is-invalid @enderror"
-                                id="password" placeholder="Password" name="Password" type="password" />
+                            <input value="{{ old('password') }}"
+                                class="form-control @error('password') is-invalid @enderror @error('login_error') is-invalid @enderror"
+                                id="password" placeholder="Password" name="password" type="password" />
 
 
+                                @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+    
                         </div>
 
-                        <div class="p-2">
+                        <div class="p-2 my-3">
                             <input type="checkbox" id="showPassword" />
                             <label for="showPassword" class="ms-2">Show Password</label>
                         </div>
-
-                        @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
 
                         @error('login_error')
                             <ul>

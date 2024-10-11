@@ -2,8 +2,18 @@
 @section('main')
     <div class="container">
 
-        <div class="container mt-5">
-            <h1>User</h1>
+        <div class="top-heading px-1 py-2 d-flex">
+            <div class="part1">
+                <h1>User</h1>
+                <p>On this page, you can easily add a update user details.</p>
+
+            </div>
+            <div class="part2">
+            </div>
+        </div>
+
+
+
             <div class="form-div">
                 <h2 class="mb-4 text-center">Update User Details</h2>
                 <div id="coverimage" style="background-image: url('{{asset($user->cover_image_url)}}') " class="coverimage">
@@ -194,8 +204,7 @@
                     <button type="submit" class="btn btn-primary">Update user</button>
                 </form>
             </div>
-        </div>
-
+        
     </div>
 @endsection
 @push('script')

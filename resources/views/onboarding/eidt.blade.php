@@ -2,10 +2,16 @@
 @section('main')
     <div class="container">
 
-
-        <div class="container mt-5">
-            <h1>Onboarding</h1>
-
+        <div class="top-heading px-1 py-2 d-flex">
+            <div class="part1">
+                <h1>Onboarding Advertisements</h1>
+                <p>On this page, you can edit an existing onboarding advertisement.</p>
+                
+                
+            </div>
+            <div class="part2">
+            </div>
+        </div>
             <div class="form-div">
                 <h2 class="mb-4 text-center">Add New Onboarding Item</h2>
                 <form method="POST" action="{{ route('updateonboarding',['id'=>$onboarding->id]) }}" enctype="multipart/form-data">
@@ -52,7 +58,6 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-        </div>
 
     </div>
 @endsection

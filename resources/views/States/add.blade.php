@@ -3,9 +3,17 @@
 
 <div class="container">
 
-    <div class="container mt-5">
+    <div class="top-heading px-1 py-2 d-flex">
+        <div class="part1">
+            <h1>States</h1>
+            <p>This page allows you to create States as needed.</p>
+        </div>
+        <div class="part2">
+            <a href="{{ route('addnestatepage') }}">Add New</a>
+        </div>
+    </div>
+
         
-        <h1>State</h1>
         <div class="form-div">
             <h2 class="mb-4 text-center">Add New State</h2>
             <form method="POST" action="{{route('addstate')}}">
@@ -41,7 +49,6 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
-    </div>
 
 </div>
 

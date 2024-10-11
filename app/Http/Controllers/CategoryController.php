@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-
 use App\Models\Category;
 use Illuminate\Http\Request;
 

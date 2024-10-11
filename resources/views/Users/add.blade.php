@@ -2,190 +2,195 @@
 @section('main')
     <div class="container">
 
-        <div class="container mt-5">
-            <h1>User</h1>
-            <div class="form-div">
-                <h2 class="mb-4 text-center">Add New User</h2>
-                <div id="coverimage" style="background-image: url('assets/imgs/placeholders/cover.jpg') " class="coverimage">
-                    <div class="coverpicinput" onclick="openimagesbg()">
-                        <img src="{{ asset('assets/imgs/icons/pen.png') }}" alt="">
-                    </div>
-                </div>
-                <div id="profilepic" style="background-image: url('assets/imgs/placeholders/avatar.jpg') "
-                    class="profilepic">
-                    <div class="profilepicinput" onclick="openimagespp()">
-                        <img src="{{ asset('assets/imgs/icons/camera.png') }}" alt="">
-                    </div>
-                </div>
+        <div class="top-heading px-1 py-2 d-flex">
+            <div class="part1">
+                <h1>User</h1>
+                <p>On this page, you can easily add a new user.</p>
 
-                <form method="POST" action="{{ route('adduser') }}" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="row">
-                        <input type="file" hidden id="backgrounpic" name="backgrounpic" accept="image/*"
-                            onchange="backgroundpic()">
-
-                        <input type="file" hidden id="profilepicinput" name="profilepicinput" accept="image/*"
-                            onchange="profilepic()">
-
-                        {{-- name --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="name">Name</label>
-                            <input required class="form-control @error('name') is-invalid @enderror" name="name"
-                                type="text" id="name" placeholder="Enter your name" maxlength="50">
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        {{-- username --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="username">Username</label>
-                            <input required class="form-control @error('username') is-invalid @enderror" name="username"
-                                id="username" type="text" placeholder="Enter your username" maxlength="50">
-                            <div id="username-feedback" class="invalid-feedback"></div>
-                            @error('username')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- gendar --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="gender">Gender</label>
-                            <select required class="form-control @error('gender') is-invalid @enderror" name="gender"
-                                id="gender">
-                                <option value="" disabled selected>Select your gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                            @error('gender')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- email --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="email">Email</label>
-                            <input required class="form-control @error('email') is-invalid @enderror" name="email"
-                                type="email" id="email" placeholder="Enter email address" maxlength="100">
-                            <div id="email-feedback" class="invalid-feedback"></div>
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- phone_num --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="phone_num">Phone Number</label>
-                            <div>
-                                <input required class="form-control @error('phone_num') is-invalid @enderror"
-                                    name="phone_num" type="tel" id="phone_num" placeholder="Enter phone number"
-                                    maxlength="15">
-                                @error('phone_num')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div id="phone_num_feedback" class="invalid-feedback"></div> <!-- Feedback div -->
-                            </div>
-                        </div>
-
-                        {{-- password --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="password">Password</label>
-                            <input required class="form-control @error('password') is-invalid @enderror" name="password"
-                                type="password" id="password" placeholder="Enter your password">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-
-                        {{-- country --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="country_id">Country</label>
-                            <select onchange="getstates()" required
-                                class="form-control @error('country_id') is-invalid @enderror" name="country_id"
-                                id="country_id">
-                                <option value="" disabled selected>Select your country</option>
-                                @foreach ($country as $data)
-                                    <option value="{{ $data->id }}">{{ $data->country_name }}</option>
-                                @endforeach
-                            </select>
-                            @error('country_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-
-                        {{-- state --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="state_id">State</label>
-                            <select onchange="getcities()" required
-                                class="form-control @error('state_id') is-invalid @enderror" name="state_id"
-                                id="state_id">
-                                <option value="" disabled selected>Select country first</option>
-                                @foreach ($country as $data)
-                                    <option value="{{ $data->id }}">{{ $data->country_name }}</option>
-                                @endforeach
-                            </select>
-                            @error('state_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        {{-- city_id --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="city_id">City</label>
-                            <select required class="form-control @error('city_id') is-invalid @enderror" name="city_id"
-                                id="city_id">
-                                <option value="" disabled selected>Select the state first</option>
-                            </select>
-                            @error('city_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- date_of_birth --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="date_of_birth">Date of Birth</label>
-                            <input required class="form-control @error('date_of_birth') is-invalid @enderror"
-                                name="date_of_birth" type="date" onchange="validateDateOfBirth()" id="date_of_birth"
-                                max="{{ date('Y-m-d') }}">
-                            <div class="invalid-feedback" id="date_of_birth_feedback"></div>
-                            @error('date_of_birth')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- address --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="address">Address</label>
-                            <input required class="form-control @error('address') is-invalid @enderror" name="address"
-                                id="address" type="text" placeholder="Enter your address">
-                            @error('address')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- description --}}
-                        <div class="col-md-6 form-group mb-4">
-                            <label class="form-label" for="description">Description</label>
-                            <textarea required class="form-control @error('description') is-invalid @enderror" name="description"
-                                id="description" rows="4" placeholder="Enter a short description or bio"></textarea>
-                            @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-
-
-
-
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registra user</button>
-                </form>
+            </div>
+            <div class="part2">
             </div>
         </div>
 
+
+        <div class="form-div">
+            <h2 class="mb-4 text-center">Add New User</h2>
+            <div id="coverimage" style="background-image: url('assets/imgs/placeholders/cover.jpg') " class="coverimage">
+                <div class="coverpicinput" onclick="openimagesbg()">
+                    <img src="{{ asset('assets/imgs/icons/pen.png') }}" alt="">
+                </div>
+            </div>
+            <div id="profilepic" style="background-image: url('assets/imgs/placeholders/avatar.jpg') " class="profilepic">
+                <div class="profilepicinput" onclick="openimagespp()">
+                    <img src="{{ asset('assets/imgs/icons/camera.png') }}" alt="">
+                </div>
+            </div>
+
+            <form method="POST" action="{{ route('adduser') }}" enctype="multipart/form-data">
+                @csrf
+
+                <div class="row">
+                    <input type="file" hidden id="backgrounpic" name="backgrounpic" accept="image/*"
+                        onchange="backgroundpic()">
+
+                    <input type="file" hidden id="profilepicinput" name="profilepicinput" accept="image/*"
+                        onchange="profilepic()">
+
+                    {{-- name --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="name">Name</label>
+                        <input required class="form-control @error('name') is-invalid @enderror" name="name"
+                            type="text" id="name" placeholder="Enter your name" maxlength="50">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    {{-- username --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="username">Username</label>
+                        <input required class="form-control @error('username') is-invalid @enderror" name="username"
+                            id="username" type="text" placeholder="Enter your username" maxlength="50">
+                        <div id="username-feedback" class="invalid-feedback"></div>
+                        @error('username')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- gendar --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="gender">Gender</label>
+                        <select required class="form-control @error('gender') is-invalid @enderror" name="gender"
+                            id="gender">
+                            <option value="" disabled selected>Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                        @error('gender')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- email --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="email">Email</label>
+                        <input required class="form-control @error('email') is-invalid @enderror" name="email"
+                            type="email" id="email" placeholder="Enter email address" maxlength="100">
+                        <div id="email-feedback" class="invalid-feedback"></div>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- phone_num --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="phone_num">Phone Number</label>
+                        <div>
+                            <input required class="form-control @error('phone_num') is-invalid @enderror" name="phone_num"
+                                type="tel" id="phone_num" placeholder="Enter phone number" maxlength="15">
+                            @error('phone_num')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div id="phone_num_feedback" class="invalid-feedback"></div> <!-- Feedback div -->
+                        </div>
+                    </div>
+
+                    {{-- password --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="password">Password</label>
+                        <input required class="form-control @error('password') is-invalid @enderror" name="password"
+                            type="password" id="password" placeholder="Enter your password">
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+                    {{-- country --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="country_id">Country</label>
+                        <select onchange="getstates()" required
+                            class="form-control @error('country_id') is-invalid @enderror" name="country_id"
+                            id="country_id">
+                            <option value="" disabled selected>Select your country</option>
+                            @foreach ($country as $data)
+                                <option value="{{ $data->id }}">{{ $data->country_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('country_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+                    {{-- state --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="state_id">State</label>
+                        <select onchange="getcities()" required
+                            class="form-control @error('state_id') is-invalid @enderror" name="state_id" id="state_id">
+                            <option value="" disabled selected>Select country first</option>
+                            @foreach ($country as $data)
+                                <option value="{{ $data->id }}">{{ $data->country_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('state_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    {{-- city_id --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="city_id">City</label>
+                        <select required class="form-control @error('city_id') is-invalid @enderror" name="city_id"
+                            id="city_id">
+                            <option value="" disabled selected>Select the state first</option>
+                        </select>
+                        @error('city_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- date_of_birth --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="date_of_birth">Date of Birth</label>
+                        <input required class="form-control @error('date_of_birth') is-invalid @enderror"
+                            name="date_of_birth" type="date" onchange="validateDateOfBirth()" id="date_of_birth"
+                            max="{{ date('Y-m-d') }}">
+                        <div class="invalid-feedback" id="date_of_birth_feedback"></div>
+                        @error('date_of_birth')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- address --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="address">Address</label>
+                        <input required class="form-control @error('address') is-invalid @enderror" name="address"
+                            id="address" type="text" placeholder="Enter your address">
+                        @error('address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- description --}}
+                    <div class="col-md-6 form-group mb-4">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea required class="form-control @error('description') is-invalid @enderror" name="description"
+                            id="description" rows="4" placeholder="Enter a short description or bio"></textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+
+
+
+                </div>
+                <button type="submit" class="btn btn-primary">Registra user</button>
+            </form>
+        </div>
     </div>
+
 @endsection
 @push('script')
     <script>

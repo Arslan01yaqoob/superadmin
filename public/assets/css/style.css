@@ -274,5 +274,10 @@ details table css start her
 /* work for professional details table  */
 
 
+hr{
+margin: 0 !important;
+color: #000000 !important;
+}
+
 
 
