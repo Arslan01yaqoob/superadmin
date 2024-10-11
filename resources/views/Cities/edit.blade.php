@@ -3,8 +3,19 @@
     <div class="container">
 
 
-        <div class="container mt-5">
-            <h1>City</h1>
+        <div class="top-heading px-1 py-2 d-flex">
+            <div class="part1">
+                <h1>City</h1>
+                <p>On this page, you can update the details of an existing city.</p>
+                
+                
+                
+            </div>
+            <div class="part2">
+            </div>
+        </div>
+
+        
             <div class="form-div">
                 <h2 class="mb-4 text-center">Edit City</h2>
                 <form method="POST" action="{{ route('updatecity', ['id' => $city->id]) }}">
@@ -68,7 +79,6 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-        </div>
 
 
     </div>

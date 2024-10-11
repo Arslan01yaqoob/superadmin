@@ -15,7 +15,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/imgs/theme/logo.png') }}" />
     @stack('style')
 
-    <!-- Template CSS -->
     {{-- <script src="{{ asset('assets/js/vendors/color-modes.js') }}"></script> --}}
     <link href="{{ asset('assets/css/main.css?v=6.0') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
@@ -51,36 +50,12 @@
                 </li>
 
                 <li
-                    class="menu-item {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage']) ? 'active' : '' }}">
-                    <a class="menu-link side-menuitem" href="{{ route('categories') }}">
-                        <img src="{{ asset('assets/imgs/icons/category.png') }}" alt="">
-                        <span class="text">Categories</span>
-                    </a>
-                </li>
-
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['niches','nicheaddpage']) ? 'active' : '' }}">
-                    <a class="menu-link side-menuitem" href="{{route('niches')}}">
-                        <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
-                        <span class="text">Niches</span>
-                    </a>
-                </li>
-
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
-                    <a class="menu-link side-menuitem" href="">
-                        <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
-                        <span class="text">Services Names</span>
-                    </a>
-                </li>
-
-
-                <li
                     class="menu-item {{ in_array(Route::currentRouteName(), ['countries', 'addnewcountrypage', 'countryupdatepage']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('countries') }}">
                         <img src="{{ asset('assets/imgs/icons/country.png') }}" alt="">
                         <span class="text">Countries</span>
                     </a>
                 </li>
-
                 <li
                     class="menu-item {{ in_array(Route::currentRouteName(), ['states', 'addnestatepage', 'stateupdatepage']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('states') }}">
@@ -88,7 +63,6 @@
                         <span class="text">States</span>
                     </a>
                 </li>
-
                 <li
                     class="menu-item {{ in_array(Route::currentRouteName(), ['cities', 'addnewcitypage', 'cityupdatepage']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('cities') }}">
@@ -96,8 +70,79 @@
                         <span class="text">Cities</span>
                     </a>
                 </li>
+
+
+                <hr>
+
                 <li
-                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), [ ]) ? 'active' : '' }} ">
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="{{ route('categories') }}">
+                        <img src="{{ asset('assets/imgs/icons/category.png') }}" alt="">
+                        <span class="text">Categories</span>
+                    </a>
+                </li>
+
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['niches', 'nicheaddpage','nicheupdatepage']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="{{ route('niches') }}">
+                        <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
+                        <span class="text">Niches</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['service.names']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="{{route('service.names')}}">
+                        <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
+                        <span class="text">Services Names</span>
+                    </a>
+                </li>
+                <hr>
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['Professional', 'update.prof.page', 'professionaladdpage', 'professionaldetails']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
+                        <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
+                        <span class="text">Professionals</span>
+                    </a>
+                </li>
+
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
+                        <img src="{{ asset('assets/imgs/icons/picture.png') }}" alt="">
+                        <span class="text">Professional Posts</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
+                        <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
+                        <span class="text">Specialists</span>
+                    </a>
+                </li>
+                <li
+                    class="menu-item  {{ in_array(Route::currentRouteName(), ['users', 'adduserpage', 'userdetails', 'userupdatepage']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="{{ route('users') }}">
+                        <img src="{{ asset('assets/imgs/icons/account.png') }}" alt="">
+                        <span class="text">Users</span>
+                    </a>
+                </li>
+                <hr>
+                <li
+                    class="menu-item {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
+                        <img src="{{ asset('assets/imgs/icons/mentor.png') }}" alt="">
+                        <span class="text">Onboarding ads</span>
+                    </a>
+                </li>
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
+                        <img src="{{ asset('assets/imgs/icons/notification.png') }}" alt="">
+                        <span class="text">Notification </span>
+                    </a>
+                </li>
+
+
+                <li class="menu-item has-submenu {{ in_array(Route::currentRouteName(), []) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem " href="{{ route('onboarding') }}">
                         <img src="{{ asset('assets/imgs/icons/report.png') }}" alt="">
                         <span class="text position-relative">Reports
@@ -114,43 +159,8 @@
                 </li>
 
 
-                <li
-                    class="menu-item {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
-                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
-                        <img src="{{ asset('assets/imgs/icons/mentor.png') }}" alt="">
-                        <span class="text">Onboarding ads</span>
-                    </a>
-                </li>
 
-                <li
-                    class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
-                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
-                        <img src="{{ asset('assets/imgs/icons/notification.png') }}" alt="">
-                        <span class="text">Notification </span>
-                    </a>
-                </li>
 
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['Professional','update.prof.page','professionaladdpage','professionaldetails',]) ? 'active' : '' }} ">
-                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
-                        <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
-                        <span class="text">Professionals</span>
-                    </a>
-                </li>
-
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
-                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
-                        <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
-                        <span class="text">Specialists</span>
-                    </a>
-                </li>
-
-                <li
-                    class="menu-item  {{ in_array(Route::currentRouteName(), ['users', 'adduserpage', 'userdetails', 'userupdatepage']) ? 'active' : '' }}">
-                    <a class="menu-link side-menuitem" href="{{ route('users') }}">
-                        <img src="{{ asset('assets/imgs/icons/account.png') }}" alt="">
-                        <span class="text">Users</span>
-                    </a>
-                </li>
 
 
 
@@ -204,7 +214,7 @@
                                     class="material-icons md-help_outline"></i>Help center</a>
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="{{route('logout')}}"><i
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i
                                     class="material-icons md-exit_to_app"></i>Logout</a>
                         </div>
                     </li>
@@ -215,26 +225,21 @@
         @yield('main')
 
     </main>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('assets/js/vendors/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/jquery.fullscreen.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/chart.js') }}"></script>
-
     <!-- Load SweetAlert2 here -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/main.js?v=6.0') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/custom-chart.js') }}" type="text/javascript"></script>
-
-
     {{-- external link  --}}
-
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-    
+
 
     @stack('script')
 

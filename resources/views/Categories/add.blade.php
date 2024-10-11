@@ -2,10 +2,17 @@
 @section('main')
     <div class="container">
 
+        <div class="top-heading px-1 py-2 d-flex">
+            <div class="part1">
+                <h1>Category</h1>
+                <p>On this page, you can add a new category.</p>
+                
+                
+            </div>
+            <div class="part2">
+            </div>
+        </div>
 
-        <div class="container mt-5">
-
-            <h1>Categories</h1>
             <div class="form-div">
                 <h2 class="mb-4 text-center">Add New Category</h2>
                 <form method="POST" action="{{ route('addcategory') }}" enctype="multipart/form-data">
@@ -53,7 +60,6 @@
                 </form>
 
             </div>
-        </div>
 
 
     </div>

@@ -1,8 +1,19 @@
 @extends('Layout.layout')
 @section('main')
-    <div class="container mt-5">
+    <div class="container">
 
-        <h1>Categories</h1>
+        <div class="top-heading px-1 py-2 d-flex">
+            <div class="part1">
+                <h1>Category</h1>
+                <p>On this page, you can edit the details of an existing category.</p>
+                
+                
+                
+            </div>
+            <div class="part2">
+            </div>
+        </div>
+
         <div class="form-div">
             <h2 class="mb-4 text-center">Add New Category</h2>
             <form method="POST" action="{{ route('updatecategory',['id'=>$category->id]) }}" enctype="multipart/form-data">

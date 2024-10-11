@@ -3,8 +3,10 @@
     <div class="container">
         <div class="top-heading px-1 py-2 d-flex">
             <div class="part1">
+                
                 <h1>Niches</h1>
                 <p>On this screen, you can create, add, or delete Niches.</p>
+            
             </div>
             <div class="part2">
                 <a href="{{ route('nicheaddpage') }}">Add New</a>
@@ -15,13 +17,14 @@
         <table class="table" id="datatabel">
             <thead>
                 <tr>
+                    
                     <th scope="col">#</th>
                     <th scope="col">Niche Name</th>
                     <th scope="col">Category Name</th>
                     <th scope="col">Active services</th>
-
                     <th scope="col">status</th>
                     <th scope="col">Edit</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +32,6 @@
                 @foreach ($niches as $data)
                     <tr>
                         <td>{{ $data->id }}</td>
-
                         <td>{{ $data->niche_name }}</td>
                         <td scope="row">{{ $data->category->category_name }}</td>
 

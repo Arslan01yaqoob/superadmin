@@ -4,7 +4,7 @@
     <div class="top-heading px-1 py-2 d-flex">
         <div class="part1">
             <h1>Countries</h1>
-            <p>On this screen, you can create, add, or delete countries.</p>
+            <p>Manage countries by adding, updating, or removing them on this screen.</p>
         </div>
         
         <div class="part2">

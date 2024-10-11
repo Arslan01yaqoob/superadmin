@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NicheController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\ServiceNameController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\userController;
@@ -32,6 +33,7 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/category/updatepage/{id}', [CategoryController::class, 'updatepage'])->name('categoryupdatepage');
     Route::post('/updatecategory/{id}', [CategoryController::class, 'update'])->name('updatecategory');
 
+
     // working for niche 
     Route::get('/niches', [NicheController::class, 'view'])->name('niches');
     Route::get('/niche/addpage', [NicheController::class, 'addpage'])->name('nicheaddpage');
@@ -40,6 +42,8 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('niche/updatepage/{id}', [NicheController::class, 'updatepage'])->name('nicheupdatepage');
     Route::post('update/niche/{id}', [NicheController::class, 'update'])->name('updateniche');
 
+    // working for ServiceNames
+    Route::get('/servicesnames', [ServiceNameController::class, 'view'])->name('service.names');
 
 
 
