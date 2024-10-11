@@ -9,6 +9,6 @@ class Services_names extends Model
 {
     use HasFactory;
 
-protected $table = '';
+protected $table = 'services_names';
 
 }
