@@ -44,7 +44,13 @@ Route::middleware(['isAdminlogin'])->group(function () {
 
     // working for ServiceNames
     Route::get('/servicesnames', [ServiceNameController::class, 'view'])->name('service.names');
-
+    Route::get('/add-new/servicename/page', [ServiceNameController::class, 'addpage'])->name('addservicenamepage');
+    Route::get('/edit-page/sericename/', [ServiceNameController::class, 'editpage'])->name('servicenameeditpage');
+    Route::get('/get-niches/according/category/{id}', [ServiceNameController::class, 'details'])->name('getniches');
+    Route::Post('/add-new/servicename', [ServiceNameController::class, 'add'])->name('addnewservicename');
+    Route::get('/update/service-name/status', [ServiceNameController::class, 'status'])->name('servicenamestatusupdate');
+Route::get('/service-name/updatepage/{id}',[ServiceNameController::class,'updatepage'])->name('servicenameupdatepage');
+Route::post('/service-name/update/{id}',[ServiceNameController::class,'update'])->name('updateservicesname');
 
 
 

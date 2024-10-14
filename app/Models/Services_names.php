@@ -11,4 +11,16 @@ class Services_names extends Model
 
 protected $table = 'services_names';
 
+public function niche(){
+
+    return $this->belongsTo(Niche::class,'niche_id');
+}
+
+public function category(){
+
+    return $this->belongsTo(Category::class,'category_id');
+
+}
+
+
 }

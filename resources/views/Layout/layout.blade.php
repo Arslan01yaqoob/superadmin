@@ -28,6 +28,10 @@
 </head>
 
 <body>
+    <div class="top-loader">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
@@ -84,7 +88,7 @@
                 </li>
 
                 <li
-                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names']) ? 'active' : '' }}">
+                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names', 'addservicenamepage', 'servicenameeditpage']) ? 'active' : '' }}">
                     <a class="menu-link side-menuitem" href="javascript:void(0);">
                         <img src="{{ asset('assets/imgs/icons/manegment.png') }}" alt="">
                         <span class="text">Services Management</span>
@@ -92,7 +96,7 @@
 
                     <!-- Submenu -->
                     <ul
-                        class="submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names']) ? 'active' : '' }}">
+                        class="submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names', 'addservicenamepage', 'servicenameeditpage']) ? 'active' : '' }}">
                         <li>
                             <a class="submenuitem {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage']) ? 'active' : '' }}"
                                 href="{{ route('categories') }}">
@@ -109,7 +113,7 @@
                         </li>
 
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['service.names']) ? 'active' : '' }}"
+                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['addservicenamepage', 'service.names', 'addservicenamepage', 'servicenameeditpage']) ? 'active' : '' }}"
                                 href="{{ route('service.names') }}">
                                 <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
                                 <span class="text">Services Names</span>
@@ -122,70 +126,69 @@
                 </li>
 
 
-                <li
-                class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
-                <a class="menu-link side-menuitem" href="javascript:void(0);">
-                    <img src="{{ asset('assets/imgs/icons/report.png') }}" alt="">
-                    <span class="text position-relative">Approval Requests
-                        <span class="badge-count translate-middle badge rounded-pill bg-danger">
-                            99+
+                <li class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
+                    <a class="menu-link side-menuitem" href="javascript:void(0);">
+                        <img src="{{ asset('assets/imgs/icons/report.png') }}" alt="">
+                        <span class="text position-relative">Approval Requests
+                            <span class="badge-count translate-middle badge rounded-pill bg-danger">
+                                99+
+                            </span>
                         </span>
-                    </span>
-                </a>
+                    </a>
 
-                <!-- Submenu -->
-                <ul
-                    class="submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names']) ? 'active' : '' }}">
-                    
-                    
-                    <li>
-                        <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                            href="{{ route('service.names') }}">
-                            <img src="{{ asset('assets/imgs/icons/label.png') }}" alt="">
-                            <span class="text">Services Names</span> 
-                        </a>
-                    </li>
-                    <li>
-                        <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                            href="{{ route('service.names') }}">
-                            <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
-                            <span class="text">Services</span> 
-                        </a>
-                    </li>
-                    <li>
-                        <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                            href="{{ route('service.names') }}">
-                            <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
-                            <span class="text">Niches  </span> 
-                        </a>                        
-                    </li>
+                    <!-- Submenu -->
+                    <ul
+                        class="submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names']) ? 'active' : '' }}">
 
-                    <li>
-                        <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                            href="{{ route('service.names') }}">
-                            <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
-                            <span class="text">Professionals</span> 
-                        </a>
-                    </li>
 
-                    <li>
-                        <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                            href="{{ route('service.names') }}">
-                            <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
-                            <span class="text">Specialists</span> 
-                        </a>
-                    </li>
+                        <li>
+                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
+                                href="{{ route('service.names') }}">
+                                <img src="{{ asset('assets/imgs/icons/label.png') }}" alt="">
+                                <span class="text">Services Names</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
+                                href="{{ route('service.names') }}">
+                                <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
+                                <span class="text">Services</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
+                                href="{{ route('service.names') }}">
+                                <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
+                                <span class="text">Niches </span>
+                            </a>
+                        </li>
 
+                        <li>
+                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
+                                href="{{ route('service.names') }}">
+                                <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
+                                <span class="text">Professionals</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
+                                href="{{ route('service.names') }}">
+                                <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
+                                <span class="text">Specialists</span>
+                            </a>
+                        </li>
 
 
 
 
 
-                </ul>
+
+                    </ul>
 
 
-            </li>
-            <li
+                </li>
+                <li
                     class="menu-item {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
                         <img src="{{ asset('assets/imgs/icons/mentor.png') }}" alt="">
@@ -210,13 +213,19 @@
                     </a>
                 </li>
 
-                <li
-                class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
-                <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
-                    <img src="{{ asset('assets/imgs/icons/booking.png') }}" alt="">
-                    <span class="text">Bookings</span>
-                </a>
-            </li>
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
+                        <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
+                        <span class="text">Services</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
+                    <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
+                        <img src="{{ asset('assets/imgs/icons/booking.png') }}" alt="">
+                        <span class="text">All Bookings</span>
+                    </a>
+                </li>
 
                 <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
@@ -315,7 +324,24 @@
         </header>
 
         @yield('main')
+        <!-- Button to trigger toast manually (optional) -->
+        <button type="button" hidden class="btn btn-primary" id="liveToastBtn">Show live toast</button>
 
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="{{ asset('assets/imgs/theme/logo.png') }}" style="height: 1rem; width:1rem;"
+                        class="rounded me-2" alt="...">
+                    <strong class="me-auto">Notification</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Hello Asad, this is a sample notification. How have you been?
+                </div>
+            </div>
+        </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('assets/js/vendors/bootstrap.bundle.min.js') }}"></script>
@@ -331,10 +357,45 @@
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script type="text/javascript">
+        const toastTrigger = document.getElementById('liveToastBtn');
+        const toastLiveExample = new bootstrap.Toast(document.getElementById('liveToast'));
 
+        if (toastTrigger) {
+            toastTrigger.addEventListener('click', () => {
+                toastLiveExample.show();
+            });
+        }
+
+        setInterval(() => {
+            toastLiveExample.show();
+        }, 10000);
+
+
+// Select all elements with the class "menu-item"
+document.querySelectorAll(".menu-item").forEach(item => {
+    item.addEventListener("click", function() {
+        const progressBar = document.getElementById("progressBar");
+        let width = 0;
+
+        // Start the progress bar animation
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+            } else {
+                width++;
+                progressBar.style.width = width + "%";
+            }
+        }, 50);
+    });
+});
+
+    
+    
+    
+    </script>
 
     @stack('script')
-
 
 </body>
 
