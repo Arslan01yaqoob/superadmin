@@ -1,3 +1,22 @@
+/* top load bar css */
+
+.top-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #f3f3f3;
+    z-index: 1000;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #0dc2f0; /* Green */
+    transition: width 0.4s ease;
+  }
+
 :root {
     --primary-color: #4fc3f7;
     --primary-hover-color: #bbe6fc;
@@ -279,5 +298,21 @@ margin: 0 !important;
 color: #000000 !important;
 }
 
+/* submenus items  */
 
+.submenuitem{
+/* background-color: #05699f; */
+display: flex;
+align-items: center;
 
+}
+
+.submenuitem img{
+    height: 18px;
+    width: 18px;
+}
+.submenuitem span{
+    margin: 0 10px ;
+    font-size: 14px;
+
+}
