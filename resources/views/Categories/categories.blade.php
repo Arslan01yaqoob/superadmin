@@ -57,6 +57,7 @@
     
 
     </div>
+    
 @endsection
 @push('script')
     <script type="text/javascript">

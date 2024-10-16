@@ -49,17 +49,18 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/get-niches/according/category/{id}', [ServiceNameController::class, 'details'])->name('getniches');
     Route::Post('/add-new/servicename', [ServiceNameController::class, 'add'])->name('addnewservicename');
     Route::get('/update/service-name/status', [ServiceNameController::class, 'status'])->name('servicenamestatusupdate');
-Route::get('/service-name/updatepage/{id}',[ServiceNameController::class,'updatepage'])->name('servicenameupdatepage');
-Route::post('/service-name/update/{id}',[ServiceNameController::class,'update'])->name('updateservicesname');
+    Route::get('/service-name/updatepage/{id}',[ServiceNameController::class,'updatepage'])->name('servicenameupdatepage');
+    Route::post('/service-name/update/{id}',[ServiceNameController::class,'update'])->name('updateservicesname');
 
 
 
     // working for Countries
     Route::get('/countries', [CountryController::class, 'view'])->name('countries');
     Route::get('/add/country/page', [CountryController::class, 'addpage'])->name('addnewcountrypage');
-    Route::post('/addcountry', [CountryController::class, 'add'])->name('addcountry');
+
+    Route::get('/addcountry', [CountryController::class, 'add'])->name('addcountry');
     Route::get('/updatecountrystatus', [CountryController::class, 'status'])->name('updatecountrystatus');
-    Route::get('/country/updatepage/{id}', [CountryController::class, 'updatepage'])->name('countryupdatepage');
+    Route::get('/country/updatepage', [CountryController::class, 'updatepage'])->name('countryupdatepage');
     Route::post('/updatecountry/{id}', [CountryController::class, 'update'])->name('updatecountry');
 
     // working for states

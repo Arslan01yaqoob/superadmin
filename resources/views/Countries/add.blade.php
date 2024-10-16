@@ -4,9 +4,6 @@
 
 
     <div class="container">
-
-
-
         <div class="top-heading px-1 py-2 d-flex">
             <div class="part1">
                 <h1>Countries</h1>
@@ -14,13 +11,7 @@
             </div>
             <div class="part2">
             </div>
-        </div>
-        
-        
-
-
-
-
+        </div>  
         <div class="form-div">
             <h2 class="mb-4 text-center">Add New Country</h2>
             <form method="POST" action="{{ route('addcountry') }}">
@@ -38,7 +29,10 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
-
-
     </div>
+
+
+
+
+    
 @endsection

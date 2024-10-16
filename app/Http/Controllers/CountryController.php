@@ -12,7 +12,7 @@ class CountryController extends Controller
     {
         
         
-        $Countries = Countries::withCount([
+        return   $Countries = Countries::withCount([
             'states as active_states_count' => function ($query) {
                 $query->where('status', 1); 
             },
@@ -22,7 +22,6 @@ class CountryController extends Controller
         ])->get();
         
 
-        return view('Countries.countries', compact('Countries'));
     }
 
     public function addpage()
@@ -36,7 +35,7 @@ class CountryController extends Controller
             'country_name' => 'required|string|max:50',
         ]);
         $country = new Countries();
-        $country->country_name = $request->country_name;
+        $country->country_name = $request->countryName;
 
         if ($country->save()) {
             return redirect('countries')->with('success', 'Country added successfully!');
@@ -44,6 +43,9 @@ class CountryController extends Controller
             return back()->with('error', 'There was an error adding the country.');
         }
     }
+
+
+
     public function status(Request $request)
     {
         $country = Countries::find($request->id);
@@ -52,10 +54,11 @@ class CountryController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function updatepage($id)
+    public function updatepage(request $request)
     {
-        $country = Countries::find($id);
-        return view('Countries.edit', compact('country'));
+        return  $country = Countries::find($request->id);
+
+    
     }
 
     public function update(Request $request, $id)

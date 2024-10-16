@@ -15,7 +15,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/imgs/theme/logo.png') }}" />
     @stack('style')
 
-    {{-- <script src="{{ asset('assets/js/vendors/color-modes.js') }}"></script> --}}
     <link href="{{ asset('assets/css/main.css?v=6.0') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
 
@@ -28,9 +27,7 @@
 </head>
 
 <body>
-    <div class="top-loader">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <div id="top-loader" class="top-loader"  ></div>
 
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
@@ -46,7 +43,7 @@
         </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['dashboard']) ? 'active' : '' }}">
+                <li class="menu-item active">
                     <a class="menu-link side-menuitem" href="{{ route('dashboard') }}">
                         <img src="{{ asset('assets/imgs/icons/home.png') }}" alt="">
                         <span class="text">Dashboard</span>
@@ -54,31 +51,31 @@
                 </li>
 
                 <li
-                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['countries', 'addnewcountrypage', 'countryupdatepage', 'states', 'addnewstatepage', 'stateupdatepage', 'cities', 'addnewcitypage', 'cityupdatepage']) ? 'active' : '' }}">
+                    class="menu-item has-submenu">
                     <a class="menu-link side-menuitem" href="javascript:void(0);">
                         <img src="{{ asset('assets/imgs/icons/geograpy.png') }}" alt="">
                         <span class="text">Geography Management</span>
                     </a>
-
-                    <!-- Submenu -->
                     <ul
-                        class="submenu {{ in_array(Route::currentRouteName(), ['countries', 'addnewcountrypage', 'countryupdatepage', 'states', 'addnewstatepage', 'stateupdatepage', 'cities', 'addnewcitypage', 'cityupdatepage']) ? 'active' : '' }}">
+                        class="submenu ">
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['countries', 'addnewcountrypage', 'countryupdatepage']) ? 'active' : '' }}"
-                                href="{{ route('countries') }}">
+                           <a class="submenuitem"
+                                href="javascript:void(0);" onclick="getcountries()">
                                 <img src="{{ asset('assets/imgs/icons/country.png') }}" alt="">
                                 <span class="text">Countries</span>
                             </a>
                         </li>
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['states', 'addnewstatepage', 'stateupdatepage']) ? 'active' : '' }}"
+                            <!-- Use the correct route for states -->
+                            <a class="submenuitem "
                                 href="{{ route('states') }}">
                                 <img src="{{ asset('assets/imgs/icons/state.png') }}" alt="">
                                 <span class="text">States</span>
                             </a>
                         </li>
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['cities', 'addnewcitypage', 'cityupdatepage']) ? 'active' : '' }}"
+                            <!-- Use the correct route for cities -->
+                            <a class="submenuitem "
                                 href="{{ route('cities') }}">
                                 <img src="{{ asset('assets/imgs/icons/city.png') }}" alt="">
                                 <span class="text">Cities</span>
@@ -86,6 +83,7 @@
                         </li>
                     </ul>
                 </li>
+
 
                 <li
                     class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names', 'addservicenamepage', 'servicenameeditpage']) ? 'active' : '' }}">
@@ -140,7 +138,6 @@
                     <ul
                         class="submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names']) ? 'active' : '' }}">
 
-
                         <li>
                             <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
                                 href="{{ route('service.names') }}">
@@ -178,15 +175,7 @@
                                 <span class="text">Specialists</span>
                             </a>
                         </li>
-
-
-
-
-
-
                     </ul>
-
-
                 </li>
                 <li
                     class="menu-item {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
@@ -204,6 +193,7 @@
 
 
 
+                {{-- professional section --}}
                 <hr>
                 <li
                     class="menu-item {{ in_array(Route::currentRouteName(), ['Professional', 'update.prof.page', 'professionaladdpage', 'professionaldetails']) ? 'active' : '' }} ">
@@ -212,7 +202,6 @@
                         <span class="text">Professionals</span>
                     </a>
                 </li>
-
                 <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
                         <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
@@ -233,21 +222,19 @@
                         <span class="text">Professional Posts</span>
                     </a>
                 </li>
-
                 <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
                         <img src="{{ asset('assets/imgs/icons/special-offer.png') }}" alt="">
                         <span class="text">Discount Deals</span>
                     </a>
                 </li>
-
-
                 <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
                     <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
                         <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
                         <span class="text">Specialists</span>
                     </a>
                 </li>
+                {{-- users section --}}
                 <hr>
                 <li
                     class="menu-item  {{ in_array(Route::currentRouteName(), ['users', 'adduserpage', 'userdetails', 'userupdatepage']) ? 'active' : '' }}">
@@ -256,12 +243,6 @@
                         <span class="text">Users</span>
                     </a>
                 </li>
-
-
-
-
-
-
 
 
 
@@ -323,28 +304,16 @@
             </div>
         </header>
 
-        @yield('main')
-        <!-- Button to trigger toast manually (optional) -->
-        <button type="button" hidden class="btn btn-primary" id="liveToastBtn">Show live toast</button>
-
-
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="{{ asset('assets/imgs/theme/logo.png') }}" style="height: 1rem; width:1rem;"
-                        class="rounded me-2" alt="...">
-                    <strong class="me-auto">Notification</strong>
-                    <small>Just now</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Hello Asad, this is a sample notification. How have you been?
-                </div>
-            </div>
+        <div id="content-area">
+            @yield('main')
         </div>
+
+
+
+
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ asset('assets/js/vendors/bootstrap.bundle.min.js') }}"></script>
+    
     <script src="{{ asset('assets/js/vendors/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/jquery.fullscreen.min.js') }}"></script>
@@ -358,42 +327,21 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script type="text/javascript">
-        const toastTrigger = document.getElementById('liveToastBtn');
-        const toastLiveExample = new bootstrap.Toast(document.getElementById('liveToast'));
 
-        if (toastTrigger) {
-            toastTrigger.addEventListener('click', () => {
-                toastLiveExample.show();
-            });
-        }
-
-        setInterval(() => {
-            toastLiveExample.show();
-        }, 10000);
+var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        let countriesUrl = "{{ route('countries') }}";
+        let addCountryRoute = "{{ route('addnewcountrypage') }}";
+        let editIconUrl = "{{ asset('assets/imgs/icons/edit.png') }}";
+        let updateCountryUrl = "{{ route('countryupdatepage') }}";
+        let countrystatusupdate = "{{ route('updatecountrystatus') }}";
 
 
-// Select all elements with the class "menu-item"
-document.querySelectorAll(".menu-item").forEach(item => {
-    item.addEventListener("click", function() {
-        const progressBar = document.getElementById("progressBar");
-        let width = 0;
 
-        // Start the progress bar animation
-        const interval = setInterval(() => {
-            if (width >= 100) {
-                clearInterval(interval);
-            } else {
-                width++;
-                progressBar.style.width = width + "%";
-            }
-        }, 50);
-    });
-});
-
-    
-    
-    
     </script>
+
+
+    <script src="{{ asset('assets/js/custom/countries.js') }}"></script>
+
 
     @stack('script')
 
