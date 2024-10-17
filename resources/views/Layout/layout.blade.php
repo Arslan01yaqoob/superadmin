@@ -11,6 +11,7 @@
     <meta property="og:type" content="" />
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/imgs/theme/logo.png') }}" />
     @stack('style')
@@ -27,7 +28,7 @@
 </head>
 
 <body>
-    <div id="top-loader" class="top-loader"  ></div>
+    <div id="top-loader" class="top-loader"></div>
 
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
@@ -50,33 +51,28 @@
                     </a>
                 </li>
 
-                <li
-                    class="menu-item has-submenu">
+                <li class="menu-item has-submenu">
                     <a class="menu-link side-menuitem" href="javascript:void(0);">
                         <img src="{{ asset('assets/imgs/icons/geograpy.png') }}" alt="">
                         <span class="text">Geography Management</span>
                     </a>
-                    <ul
-                        class="submenu ">
+                    <ul class="submenu ">
                         <li>
-                           <a class="submenuitem"
-                                href="javascript:void(0);" onclick="getcountries()">
+                            <a class="submenuitem" href="javascript:void(0);" onclick="getcountries()">
                                 <img src="{{ asset('assets/imgs/icons/country.png') }}" alt="">
                                 <span class="text">Countries</span>
                             </a>
                         </li>
                         <li>
                             <!-- Use the correct route for states -->
-                            <a class="submenuitem "
-                                href="{{ route('states') }}">
+                            <a class="submenuitem" href="javascript:void(0);" onclick="getStates()">
                                 <img src="{{ asset('assets/imgs/icons/state.png') }}" alt="">
                                 <span class="text">States</span>
                             </a>
                         </li>
                         <li>
                             <!-- Use the correct route for cities -->
-                            <a class="submenuitem "
-                                href="{{ route('cities') }}">
+                            <a class="submenuitem " href="javascript:void(0);" onclick="getCities()">
                                 <img src="{{ asset('assets/imgs/icons/city.png') }}" alt="">
                                 <span class="text">Cities</span>
                             </a>
@@ -313,7 +309,7 @@
 
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
+
     <script src="{{ asset('assets/js/vendors/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/jquery.fullscreen.min.js') }}"></script>
@@ -327,13 +323,31 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script type="text/javascript">
-
-var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        // countries page routes
         let countriesUrl = "{{ route('countries') }}";
-        let addCountryRoute = "{{ route('addnewcountrypage') }}";
         let editIconUrl = "{{ asset('assets/imgs/icons/edit.png') }}";
         let updateCountryUrl = "{{ route('countryupdatepage') }}";
         let countrystatusupdate = "{{ route('updatecountrystatus') }}";
+        let addnewcountry = "{{ route('addcountry') }}";
+        let updatecountrydetails = "{{ route('updatecountry') }}";
+
+        // states page routes
+        let StatesUrl = "{{ route('states') }}"
+        let stateaddpage = "{{ route('addnestatepage') }}";
+        let addnewstate = "{{ route('addstate') }}";
+        let statestatusupdate = "{{ route('updatestatestatus') }}";
+        let stateupdatepage = "{{ route('stateupdatepage') }}";
+        let updatestateinfo = "{{ route('updatestate') }}";
+
+        // cities page routes
+
+        let citiesUrl = "{{ route('cities') }}"
+        let cityaddpage = "{{ route('addnewcitypage') }}";
+        let addnewcity = "{{ route('addcity') }}";
+        let citystatusupdate = "{{ route('updatecitystatus') }}";
+        let cityupdatepage = "{{ route('cityupdatepage') }}";
+        let updatecityinfo = "{{ route('updatecity') }}";
+
 
 
 
@@ -341,7 +355,8 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
 
     <script src="{{ asset('assets/js/custom/countries.js') }}"></script>
-
+    <script src="{{ asset('assets/js/custom/states.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/city.js') }}"></script>
 
     @stack('script')
 

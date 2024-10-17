@@ -90,63 +90,114 @@ function updatecountryStatus(id) {
     stopLoading();
 }
 // creating country adding page 
+// creating country adding page 
 function countriesaddpage() {
     startLoading();
     let contentArea = $('#content-area');
-    $.ajax({
-        url: countriesUrl,
-        method: 'GET',
-        success: function (response) {
-            let countriesaddpage = `
-                <div class="container">
-                    <div class="top-heading px-1 py-2 d-flex">
-                        <div class="part1">
-                            <h1>Countries</h1>
-                            <p>Here, you can easily add country as needed.</p>
-                        </div>
-                        <div class="part2">
-                        </div>
-                    </div>  
-                    <div class="form-div">
-                        <h2 class="mb-4 text-center">Add New Country</h2>
-                        <form id="addCountryForm">
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-4">
-                                    <label class="form-label" for="country_name">Country Name</label>
-                                    <input required class="form-control" name="country_name"
-                                        type="text" id="country_name" placeholder="Enter country name" maxlength="50">
-                                    <div id="countryNameError" class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
+    let countriesaddpage = `
+        <div class="container">
+            <div class="top-heading px-1 py-2 d-flex">
+                <div class="part1">
+                    <h1>Countries</h1>
+                    <p>Here, you can easily add country as needed.</p>
                 </div>
-            `;
+                <div class="part2">
+                </div>
+            </div>  
+            <div class="form-div">
+                <h2 class="mb-4 text-center">Add New Country</h2>
+                <form id="addCountryForm">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label" for="country_name">Country Name</label>
+                            <input required class="form-control" name="country_name"
+                                type="text" id="country_name" placeholder="Enter country name" maxlength="50">
+                            <div id="countryNameError" class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    `;
+    contentArea.html(countriesaddpage);
 
+    // countries add form 
+    document.getElementById('addCountryForm').addEventListener('submit', function (event) {
+        event.preventDefault();
 
-            contentArea.html(countriesaddpage);
+        let countryNameError = document.getElementById('countryNameError');
+        countryNameError.textContent = '';
 
+        let countryName = document.getElementById('country_name').value;
 
-        },
-        error: function (error) {
-            console.error('Error fetching countries page:', error);
+        if (countryName.trim() === '') {
+            countryNameError.textContent = 'Country name is required.';
+            return;
         }
-    });
-    stopLoading();
 
+        let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        let formData = new FormData();
+        formData.append('country_name', countryName);
+        formData.append('_token', csrfToken);
+
+        $.ajax({
+            url: addnewcountry, // Make sure addnewcountry is defined
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Country added successfully!',
+                    });
+                    document.getElementById('addCountryForm').reset();
+
+                    getcountries(); // Make sure getcountries is defined
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to add country. Please try again.',
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred: ' + error,
+                });
+            }
+        });
+    });
+
+    stopLoading();
 }
 
-// country edit page
+
+    
+// countries update page
+// Country edit page
 function countryeditpage(id) {
     let contentArea = $('#content-area');
     startLoading();
 
     $.ajax({
-        url: updateCountryUrl,
+        url: updateCountryUrl, 
         method: 'GET',
-        data: { id: id }, // Sending the id as data
+        data: { id: id }, 
         success: function (response) {
+            if (!response || !response.country_name || !response.id) {
+                console.error('Invalid response:', response);
+                stopLoading();
+                return;
+            }
+
             let Countriesaddpage = `
                 <div class="container">
                     <div class="top-heading px-1 py-2 d-flex">
@@ -159,15 +210,15 @@ function countryeditpage(id) {
                     </div>
                     <div class="form-div">
                         <h2 class="mb-4 text-center">Edit Country</h2>
-                        <form method="POST" action="{{ route('updatecountry', ['id'=> ${response.id}]) }}">
-                         
+                        <form id="updatecountryform">
                             <div class="row">
                                 <div class="col-md-6 form-group mb-4">
                                     <label class="form-label" for="country_name">Country Name</label>
                                     <input required class="form-control"
                                         name="country_name" type="text" value="${response.country_name}" 
                                         id="country_name" placeholder="Enter country name" maxlength="50">
-                                   
+                                        <input hidden required name="countryid" id="countryid" value="${response.id}">
+                                    <div id="countryNameError" class="invalid-feedback"></div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -178,6 +229,63 @@ function countryeditpage(id) {
 
             contentArea.html(Countriesaddpage);
             stopLoading();
+
+            // Add submit event listener for the form
+            document.getElementById('updatecountryform').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                let countryNameError = document.getElementById('countryNameError');
+                countryNameError.textContent = '';
+
+                let countryName = document.getElementById('country_name').value;
+                let countryid = document.getElementById('countryid').value;
+
+                if (countryName.trim() === '') {
+                    countryNameError.textContent = 'Country name is required.';
+                    return;
+                }
+
+                let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // Construct the update URL with the country ID
+
+                let formData = new FormData();
+                formData.append('country_name', countryName);
+                formData.append('id', countryid);
+                formData.append('_token', csrfToken);
+
+                $.ajax({
+                    url: updatecountrydetails,
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Country updated successfully!',
+                            });
+                            document.getElementById('updatecountryform').reset();
+                            getcountries(); // Reload the countries list
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to update country. Please try again.',
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred: ' + error,
+                        });
+                    }
+                });
+            });
         },
         error: function (error) {
             console.error('Error fetching countries:', error);
@@ -185,7 +293,6 @@ function countryeditpage(id) {
         }
     });
 }
-
 // loading bars
 function startLoading() {
     const loadingBar = document.getElementById('top-loader');
@@ -201,60 +308,9 @@ function stopLoading() {
     }, 300);
 }
 
-// Submitting the adding page
-$('#addCountryForm').on('submit', function (event) {
-    event.preventDefault(); // Prevent the default form submission
+// countries add page
 
-    // Clear previous errors
-    let countryNameError = $('#countryNameError');
-    countryNameError.text(''); // Clear the error message
-    $('#country_name').removeClass('is-invalid'); // Remove invalid class
 
-    // Get form data
-    let countryName = $('#country_name').val();
 
-    // Basic validation
-    if (countryName.trim() === '') {
-        countryNameError.text('Country name is required.');
-        $('#country_name').addClass('is-invalid');
-        return;
-    }
 
-    // Send AJAX request
-    $.ajax({
-        url: "{{ route('updatecitystatus') }}",
-        method: 'get',
-        data: {
-            country_name: countryName,
-            _token: '{{ csrf_token() }}' // CSRF token for security
-        },
-        success: function (data) {
-            if (data.success) {
-                alert('Country added successfully!');
-        
-                $('#addCountryForm')[0].reset(); 
-               
-            } else if (data.errors) {
-            
-                if (data.errors.country_name) {
-                    countryNameError.text(data.errors.country_name[0]);
-                    $('#country_name').addClass('is-invalid');
-                }
-            } else {
-                countryNameError.text(data.message || 'An error occurred.');
-            }
-        },
-        error: function (xhr) {
-            if (xhr.status === 422) {
-                let errors = xhr.responseJSON.errors;
-                if (errors.country_name) {
-                    countryNameError.text(errors.country_name[0]);
-                    $('#country_name').addClass('is-invalid');
-                }
-            } else {
-                countryNameError.text('An error occurred while adding the country.');
-                console.error('Error:', xhr);
-            }
-        }
-    });
-});
+

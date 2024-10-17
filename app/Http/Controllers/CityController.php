@@ -12,8 +12,8 @@ class CityController extends Controller
 
     public function view()
     {
-       $cities = Cities::with('country', 'state')->get();
-        return view('Cities.cities', compact('cities'));
+        return   $cities = Cities::with('country', 'state')->get();
+       
     }
     
 

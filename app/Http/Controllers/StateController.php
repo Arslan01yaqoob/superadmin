@@ -11,7 +11,7 @@ class StateController extends Controller
 
     public function view()
     {
-        $states = State::with('country')
+        return  $states = State::with('country')
             ->withCount([
                 'cities as active_cities_count' => function ($query) {
                     $query->where('status', 1);
@@ -19,30 +19,32 @@ class StateController extends Controller
             ])
             ->get();
     
-        return view('States.states', compact('states'));
     }
 
     public function addpage()
     {
-        $countries = Countries::where('status', 1)->get();
-        return view('States.add', compact('countries'));
+        return  $countries = Countries::where('status', 1)->get();
+         view('States.add', compact('countries'));
     }
 
-    public function add(Request $request)
+    public function add(request $request)
     {
-        $validated = $request->validate([
-            'state_name' => 'required|string|max:50|unique:states,state_name',
-
-            'country_id' => 'required|exists:countries,id', // Ensure country_id exists in the countries table
+        $validatedData = $request->validate([
+            'state_name' => 'required|string|max:50',
+            'country_id' => 'required|integer'
         ]);
-
+    
+        // Proceed to save the state if validation passes
         $state = new State();
-        $state->state_name = $validated['state_name'];
-        $state->country_id = $validated['country_id'];
+        $state->state_name = $validatedData['state_name'];
+        $state->country_id = $validatedData['country_id'];
         $state->save();
-
-        return redirect('states')->with('success', 'State added successfully!');
+    
+        return response()->json(['success' => true]);
     }
+    
+
+
     public function status(Request $request)
     {
         $state = State::find($request->id);
@@ -51,17 +53,28 @@ class StateController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function updatepage($id)
+    public function updatepage(request $request)
     {
+$id= $request->id;
+
         $state = State::with('country')->find($id);
         $countries = Countries::where('status', 1)->get();
-        return view('States.edit', compact('state', 'countries'));
+   
+        return response()->json([
+            'state' => $state,
+            'countries' => $countries,
+        ]);
+    
+
     }
-    public function update(Request $request, $id)
+    public function update(request $request)
     {
+
+$id = $request->state_id;
+
         $validated = $request->validate([
             'state_name' => 'required|string|max:50|unique:states,state_name,' . $id,
-            'country_id' => 'required|exists:countries,id',
+            'country_id' => 'required|integer|exists:countries,id',
         ]);
 
         $state = State::findOrFail($id);
@@ -71,7 +84,7 @@ class StateController extends Controller
 
         $state->save();
 
-        return redirect('states')->with('success', 'State updated successfully!');
+        return response()->json(['success' => true]);
     }
 
     public function details($id)

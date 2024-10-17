@@ -56,30 +56,28 @@ Route::middleware(['isAdminlogin'])->group(function () {
 
     // working for Countries
     Route::get('/countries', [CountryController::class, 'view'])->name('countries');
-    Route::get('/add/country/page', [CountryController::class, 'addpage'])->name('addnewcountrypage');
-
-    Route::get('/addcountry', [CountryController::class, 'add'])->name('addcountry');
+    Route::post('/addcountry', [CountryController::class, 'add'])->name('addcountry');
     Route::get('/updatecountrystatus', [CountryController::class, 'status'])->name('updatecountrystatus');
     Route::get('/country/updatepage', [CountryController::class, 'updatepage'])->name('countryupdatepage');
-    Route::post('/updatecountry/{id}', [CountryController::class, 'update'])->name('updatecountry');
+    Route::post('/updatecountry', [CountryController::class, 'update'])->name('updatecountry');
 
     // working for states
-    Route::get('/states', [StateController::class, 'view'])->name('states');
+    Route::get('/states', [StateController::class, 'view'])->name('states'); 
     Route::get('add/state/page', [StateController::class, 'addpage'])->name('addnestatepage');
     Route::post('/addstate', [StateController::class, 'add'])->name('addstate');
     Route::get('/updatestatestatus', [StateController::class, 'status'])->name('updatestatestatus');
-    Route::get('/state/updatepage/{id}', [StateController::class, 'updatepage'])->name('stateupdatepage');
-    Route::post('updatestate/{id}', [StateController::class, 'update'])->name('updatestate');
+    Route::get('/state/updatepage', [StateController::class, 'updatepage'])->name('stateupdatepage');
+    Route::post('update/state-info', [StateController::class, 'update'])->name('updatestate');
     Route::get('get/states/detaisl/{id}', [StateController::class, 'details'])->name('getstates');
 
 
     // working for cities
-    Route::get('getcities', [CityController::class, 'view'])->name('cities');
+    Route::get('/getcities', [CityController::class, 'view'])->name('cities');
     Route::get('/add/city/', [CityController::class, 'addpage'])->name('addnewcitypage');
-    Route::post('/addcity', [CityController::class, 'add'])->name('addcountry');
+    Route::post('/addcity', [CityController::class, 'add'])->name('addcity');
     Route::get('/updatecitystatus', [CityController::class, 'status'])->name('updatecitystatus');
-    Route::get('/city/updatepage/{id}', [CityController::class, 'updatepage'])->name('cityupdatepage');
-    Route::post('/updatecity/{id}', [CityController::class, 'update'])->name('updatecity');
+    Route::get('/city/updatepage', [CityController::class, 'updatepage'])->name('cityupdatepage');
+    Route::post('/updatecity', [CityController::class, 'update'])->name('updatecity');
     Route::get('getcities/details/{id}', [CityController::class, 'details'])->name('getcities'); // get cities details according to country
 
     // working for onboarding ads 

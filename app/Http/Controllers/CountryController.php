@@ -10,39 +10,34 @@ class CountryController extends Controller
 
     public function view()
     {
-        
-        
+
+
         return   $Countries = Countries::withCount([
             'states as active_states_count' => function ($query) {
-                $query->where('status', 1); 
+                $query->where('status', 1);
             },
             'cities as active_cities_count' => function ($query) {
                 $query->where('status', 1);
             }
         ])->get();
-        
-
     }
 
-    public function addpage()
-    {
-        return view('Countries.add');
-    }
+
 
     public function add(Request $request)
     {
         $request->validate([
-            'country_name' => 'required|string|max:50',
+            'country_name' => 'required|string|max:50|unique:countries,country_name',
         ]);
-        $country = new Countries();
-        $country->country_name = $request->countryName;
 
-        if ($country->save()) {
-            return redirect('countries')->with('success', 'Country added successfully!');
-        } else {
-            return back()->with('error', 'There was an error adding the country.');
-        }
+
+        $country = new Countries();
+        $country->country_name = $request->country_name;
+        $country->save();
+
+        return response()->json(['success' => true]);
     }
+
 
 
 
@@ -57,12 +52,11 @@ class CountryController extends Controller
     public function updatepage(request $request)
     {
         return  $country = Countries::find($request->id);
-
-    
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $id = $request->id;
 
         $request->validate([
             'country_name' => 'required|string|max:50',
@@ -72,10 +66,9 @@ class CountryController extends Controller
         $country->country_name = $request->country_name;
 
         if ($country->save()) {
-            return redirect('countries')->with('success', 'Country updated successfully!');
+            return response()->json(['success' => true, 'message' => 'Country Updateing successfully!']);
         } else {
-            return back()->with('error', 'There was an error updating the country.');
+            return response()->json(['success' => false, 'message' => 'There was an error adding the country.']);
         }
     }
-
 }

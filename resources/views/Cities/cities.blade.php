@@ -7,7 +7,7 @@
                 <p>On this screen, you can create, add, or delete cities.</p>
             </div>
             <div class="part2">
-                <a href="{{route('addnewcitypage')}}">Add New</a>
+                <a href="{{ route('addnewcitypage') }}">Add New</a>
             </div>
         </div>
 
@@ -53,6 +53,9 @@
 
 
     </div>
+
+
+    
 @endsection
 @push('script')
     <script>
@@ -101,6 +104,5 @@
                 },
             });
         }
-
     </script>
 @endpush
