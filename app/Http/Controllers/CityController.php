@@ -21,8 +21,8 @@ class CityController extends Controller
     public function addpage()
     {
 
-           $countries = Countries::where('status', 1)->get();
-        return view('Cities.add',compact('countries'));
+        return  $countries = Countries::where('status', 1)->get();
+           
     }
 
 
@@ -40,11 +40,11 @@ class CityController extends Controller
         $city->country_id = $request->country_id;
         $city->state_id = $request->state_id; 
     
-        if ($city->save()) {
-            return redirect()->route('cities')->with('success', 'City added successfully!');
-        } else {
-            return back()->with('error', 'There was an error adding the city.');
-        }
+        $city->save();
+        
+        return response()->json(['success' => true]);
+
+
     }
     
     public function status(Request $request)
@@ -56,20 +56,27 @@ class CityController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function updatepage($id)
+    public function updatepage(request $request)
     {
+$id = $request->id;
+
         $city = Cities::with('country', 'state')->find($id);
     
         $countries = Countries::where('status',1)->get();
         $states = State::where('country_id', $city->country_id)->where('status',1)->get(); 
 
-        return view('Cities.edit', compact('city', 'countries', 'states'));
+        return response()->json([
+            'city'=>$city,
+            'states' => $states,
+            'countries' => $countries,
+        ]);
+
     }
     
 
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -77,6 +84,8 @@ class CityController extends Controller
             'country_id' => 'required|exists:countries,id',
         ]);
     
+$id = $request->id;
+
         $city = Cities::findOrFail($id);
     
         $city->update([
@@ -86,8 +95,7 @@ class CityController extends Controller
         ]);
     
         // Redirect or return a response
-        return 
-        redirect()->route('cities')->with('success', 'City updated successfully');
+        return response()->json(['success' => true]);
     }
     
 

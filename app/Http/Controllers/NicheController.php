@@ -51,7 +51,7 @@ class NicheController extends Controller
 
         $niche->save();
 
-        return redirect()->route('niches')->with('success', 'Niche added successfully');
+        return response()->json(['success' => true]);
     }
 
     public function updatepage($id)

@@ -55,7 +55,7 @@ class StateController extends Controller
 
     public function updatepage(request $request)
     {
-$id= $request->id;
+        $id= $request->id;
 
         $state = State::with('country')->find($id);
         $countries = Countries::where('status', 1)->get();
@@ -70,7 +70,7 @@ $id= $request->id;
     public function update(request $request)
     {
 
-$id = $request->state_id;
+        $id = $request->state_id;
 
         $validated = $request->validate([
             'state_name' => 'required|string|max:50|unique:states,state_name,' . $id,
@@ -87,8 +87,11 @@ $id = $request->state_id;
         return response()->json(['success' => true]);
     }
 
-    public function details($id)
+    public function details(request $request)
     {
+
+            $id = $request->country_id;
+
 
         return $state = State::where('country_id', $id)->where('status', 1)->get();
     }

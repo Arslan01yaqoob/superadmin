@@ -12,4 +12,9 @@ class Category extends Model
     protected $table = 'categories';
     protected $guarded = [];
 
+
+public function niches(){
+    return $this->hasMany(Niche::class,'category_id');
+}
+
 }

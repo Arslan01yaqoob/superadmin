@@ -196,7 +196,6 @@ function statesAddPage() {
    
     stopLoading();
 }
-
 function updateStateStatus(id){
 
     startLoading();
@@ -351,6 +350,8 @@ function stateEditPage(id) {
             stopLoading();
         }
     });
+
+    
 }
 
 

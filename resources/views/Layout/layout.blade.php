@@ -80,9 +80,8 @@
                     </ul>
                 </li>
 
-
                 <li
-                    class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names', 'addservicenamepage', 'servicenameeditpage']) ? 'active' : '' }}">
+                    class="menu-item has-submenu ">
                     <a class="menu-link side-menuitem" href="javascript:void(0);">
                         <img src="{{ asset('assets/imgs/icons/manegment.png') }}" alt="">
                         <span class="text">Services Management</span>
@@ -90,10 +89,10 @@
 
                     <!-- Submenu -->
                     <ul
-                        class="submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names', 'addservicenamepage', 'servicenameeditpage']) ? 'active' : '' }}">
+                        class="submenu ">
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage']) ? 'active' : '' }}"
-                                href="{{ route('categories') }}">
+                            <a class="submenuitem "
+                               href="javascript:void(0);"  onclick="getCategories()">
                                 <img src="{{ asset('assets/imgs/icons/category.png') }}" alt="">
                                 <span class="text">Categories</span>
                             </a>
@@ -118,7 +117,6 @@
 
 
                 </li>
-
 
                 <li class="menu-item has-submenu {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}">
                     <a class="menu-link side-menuitem" href="javascript:void(0);">
@@ -186,9 +184,6 @@
                         <span class="text">Notification Broadcasting</span>
                     </a>
                 </li>
-
-
-
                 {{-- professional section --}}
                 <hr>
                 <li
@@ -323,7 +318,11 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script type="text/javascript">
-        // countries page routes
+
+// base url of images 
+
+const baseUrl = 'http://127.0.0.1:8000/'; 
+        //  countries page routes
         let countriesUrl = "{{ route('countries') }}";
         let editIconUrl = "{{ asset('assets/imgs/icons/edit.png') }}";
         let updateCountryUrl = "{{ route('countryupdatepage') }}";
@@ -332,23 +331,30 @@
         let updatecountrydetails = "{{ route('updatecountry') }}";
 
         // states page routes
-        let StatesUrl = "{{ route('states') }}"
+        let StatesUrl = "{{ route('states') }}";
         let stateaddpage = "{{ route('addnestatepage') }}";
         let addnewstate = "{{ route('addstate') }}";
         let statestatusupdate = "{{ route('updatestatestatus') }}";
         let stateupdatepage = "{{ route('stateupdatepage') }}";
         let updatestateinfo = "{{ route('updatestate') }}";
+        let getstates = "{{ route('getstates') }}";
 
-        // cities page routes
-
-        let citiesUrl = "{{ route('cities') }}"
+        // cities page route
+        let citiesUrl = "{{ route('cities') }}";
         let cityaddpage = "{{ route('addnewcitypage') }}";
         let addnewcity = "{{ route('addcity') }}";
         let citystatusupdate = "{{ route('updatecitystatus') }}";
         let cityupdatepage = "{{ route('cityupdatepage') }}";
         let updatecityinfo = "{{ route('updatecity') }}";
 
+        // categories page route
 
+        let categoriesUrl = "{{ route('categories') }}";
+        let categoriesaddpage = "{{ route('addnewcatepage') }}";
+        let addnewcategories = "{{ route('addcategory') }}";
+        let categoriesstatusupdate = "{{ route('updatecategorystatus') }}";
+        let categoriesupdatepage = "{{ route('categoryupdatepage') }}";
+        let updatecategoriesinfo = "{{ route('updatecategory') }}";
 
 
     </script>
@@ -357,6 +363,7 @@
     <script src="{{ asset('assets/js/custom/countries.js') }}"></script>
     <script src="{{ asset('assets/js/custom/states.js') }}"></script>
     <script src="{{ asset('assets/js/custom/city.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/categories.js') }}"></script>
 
     @stack('script')
 

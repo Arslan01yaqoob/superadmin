@@ -12,14 +12,13 @@ class CategoryController extends Controller
     public function view()
     {
 
-        $categories = Category::get();
-        return view('Categories.categories', compact('categories'));
+        return $categories = Category::withCount(['niches' => function ($query) {
+            $query->where('status', 1);
+        }])->get();
+        
+     
     }
 
-    public function addpage()
-    {
-        return view('Categories.add');
-    }
 
     public function add(Request $request)
     {
@@ -61,11 +60,7 @@ class CategoryController extends Controller
         $category->save();
 
 
-        if ($category->save()) {
-            return redirect('categories')->with('success', 'Category added successfully!');
-        } else {
-            return back()->with('error', 'There was an error adding the category.');
-        }
+        return response()->json(['success' => true]);
     }
     public function status(Request $request)
     {
@@ -75,16 +70,20 @@ class CategoryController extends Controller
         $category->save();
         return response()->json(['success' => true]);
     }
-    public function updatepage($id)
+    public function updatepage(Request $request)
     {
 
-        $category = Category::find($id);
+        $id = $request->id;
 
-        return view('Categories.edit', compact('category'));
+        return $category = Category::find($id);
+
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+
+        $id= $request->category_id;
+
         $category = Category::find($id);
         $validated = $request->validate([
             'category_name' => 'required|string|max:50',
@@ -122,11 +121,8 @@ class CategoryController extends Controller
 
         $category->save();
 
-        if ($category->save()) {
-            return redirect('categories')->with('success', 'Category updated successfully!');
-        } else {
-            return back()->with('error', 'There was an error updating the category.');
-        }
+        return response()->json(['success' => true]);
+        
     }
 
 

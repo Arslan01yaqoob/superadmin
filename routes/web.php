@@ -25,13 +25,14 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/logout', [SuperadminController::class, 'logout'])->name('logout');
 
     Route::get('/dashboard', [DashboardController::class, 'view'])->name('dashboard');
+
     // Working For Categories
     Route::get('/categories', [CategoryController::class, 'view'])->name('categories');
     Route::get('/add/categorypage', [CategoryController::class, 'addpage'])->name('addnewcatepage');
     Route::post('/addcategory', [CategoryController::class, 'add'])->name('addcategory');
     Route::get('/updatecategorystatus', [CategoryController::class, 'status'])->name('updatecategorystatus');
-    Route::get('/category/updatepage/{id}', [CategoryController::class, 'updatepage'])->name('categoryupdatepage');
-    Route::post('/updatecategory/{id}', [CategoryController::class, 'update'])->name('updatecategory');
+    Route::get('/category/updatepage', [CategoryController::class, 'updatepage'])->name('categoryupdatepage');
+    Route::post('/updatecategory', [CategoryController::class, 'update'])->name('updatecategory');
 
 
     // working for niche 
@@ -68,7 +69,7 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/updatestatestatus', [StateController::class, 'status'])->name('updatestatestatus');
     Route::get('/state/updatepage', [StateController::class, 'updatepage'])->name('stateupdatepage');
     Route::post('update/state-info', [StateController::class, 'update'])->name('updatestate');
-    Route::get('get/states/detaisl/{id}', [StateController::class, 'details'])->name('getstates');
+    Route::get('get/states/detaisl', [StateController::class, 'details'])->name('getstates');
 
 
     // working for cities
@@ -115,4 +116,6 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/updateaccount/professional/status/{status}/{user}', [ProfessionalController::class, 'accountstatus'])->name('update.pro.status');
     Route::get('update/professional/page/{id}', [ProfessionalController::class, 'updatepage'])->name('update.prof.page');
     Route::post('update/professional/{id}', [ProfessionalController::class, 'update'])->name('updateprofessionl');
+
+
 });
