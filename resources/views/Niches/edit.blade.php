@@ -1,5 +1,6 @@
 @extends('Layout.layout')
 @section('main')
+
     <div class="container">
         <div class="top-heading px-1 py-2 d-flex">
             <div class="part1">
@@ -7,7 +8,7 @@
                 <p>This page allows you to create new Niches</p>
             </div>
             <div class="part2">
-                {{-- <a href="{{ route('nicheaddpage') }}">Add New</a> --}}
+             
             </div>
 
         </div>
@@ -62,16 +63,7 @@
                         </div>
     
                 </div>
-                    
-
-
-
             </form>
-
-
-
-
-
         </div>
 
 
@@ -80,4 +72,7 @@
 
 
     </div>
+
+
+    
 @endsection

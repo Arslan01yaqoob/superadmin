@@ -13,16 +13,18 @@ class ServiceNameController extends Controller
     public function view()
     {
 
-        $servicesnames = Services_names::with('niche')
+        return  $servicesnames = Services_names::with('niche')
             ->with('category')
             ->get();
 
-        return view('ServicesNames.services', compact('servicesnames'));
+    
     }
     public function addpage()
     {
-        $categories = Category::where('status', '1')->get();
-        return view('ServicesNames.add', compact('categories'));
+        return  $categories = Category::where('status', '1')->get();
+        
+        
+    
     }
 
     public function editpage()

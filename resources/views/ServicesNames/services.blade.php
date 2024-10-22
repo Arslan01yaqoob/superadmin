@@ -1,5 +1,7 @@
 @extends('Layout.layout')
 @section('main')
+
+
     <div class="container">
         <div class="top-heading px-1 py-2 d-flex">
             <div class="part1">
@@ -54,7 +56,9 @@
 
 
     </div>
-@endsection
+
+
+    @endsection
 
 @push('script')
     <script type="text/javascript">

@@ -98,16 +98,16 @@
                             </a>
                         </li>
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['niches', 'nicheaddpage', 'nicheupdatepage']) ? 'active' : '' }}"
-                                href="{{ route('niches') }}">
+                            <a class="submenuitem"
+                              href="javascript:void(0);"  onclick="getNiches()">
                                 <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
                                 <span class="text">Niches</span>
                             </a>
                         </li>
 
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['addservicenamepage', 'service.names', 'addservicenamepage', 'servicenameeditpage']) ? 'active' : '' }}"
-                                href="{{ route('service.names') }}">
+                            <a class="submenuitem "
+                                href="javascript:void(0);"  onclick="getServicesName()">
                                 <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
                                 <span class="text">Services Names</span>
                             </a>
@@ -348,13 +348,33 @@ const baseUrl = 'http://127.0.0.1:8000/';
         let updatecityinfo = "{{ route('updatecity') }}";
 
         // categories page route
-
         let categoriesUrl = "{{ route('categories') }}";
         let categoriesaddpage = "{{ route('addnewcatepage') }}";
         let addnewcategories = "{{ route('addcategory') }}";
         let categoriesstatusupdate = "{{ route('updatecategorystatus') }}";
         let categoriesupdatepage = "{{ route('categoryupdatepage') }}";
         let updatecategoriesinfo = "{{ route('updatecategory') }}";
+
+        //  route for niches 
+        let nichesUrl  = "{{ route('niches') }}";
+        let nichesAddPage = "{{ route('nicheaddpage') }}";
+        let addNewNiches = "{{ route('addniche') }}";
+        let nichesStatusUpdate = "{{ route('updatenichestatus') }}";
+        let nichesUpdatePage = "{{ route('nicheupdatepage')}}";
+        let nichesUpdateInfo = "{{ route('updateniche') }}";
+
+
+        //  route for services names 
+        let serviceNameUrl  = "{{ route('service.names') }}";
+        let serviceNameAddPage = "{{ route('addservicenamepage') }}";
+        let addNewServiceName = "{{ route('addnewservicename') }}";
+        let servicenameStatusUpdate = "{{ route('servicenamestatusupdate') }}";
+        let serviceNameUpdatePage = "{{ route('servicenameeditpage') }}";
+        let serviceNameUpdateInfo = "{{ route('updateservicesname') }}";
+
+
+
+
 
 
     </script>
@@ -364,6 +384,8 @@ const baseUrl = 'http://127.0.0.1:8000/';
     <script src="{{ asset('assets/js/custom/states.js') }}"></script>
     <script src="{{ asset('assets/js/custom/city.js') }}"></script>
     <script src="{{ asset('assets/js/custom/categories.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/niches.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/servicesnames.js') }}"></script>
 
     @stack('script')
 

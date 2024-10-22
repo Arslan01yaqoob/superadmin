@@ -202,7 +202,7 @@ function addCityPage() {
         }
     });
 }
-
+// city edit page
 function cityEditpage(id) {
     let contentArea = $('#content-area');
     startLoading();
@@ -371,8 +371,7 @@ function cityEditpage(id) {
     });
 }
 
-
-
+// update city status
 function updatecitystatus(id) {
     startLoading();
     $.ajax({

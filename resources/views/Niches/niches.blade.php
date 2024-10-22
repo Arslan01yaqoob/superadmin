@@ -1,19 +1,17 @@
 @extends('Layout.layout')
 @section('main')
+
+
     <div class="container">
         <div class="top-heading px-1 py-2 d-flex">
-            <div class="part1">
-                
+            <div class="part1">                
                 <h1>Niches</h1>
                 <p>On this screen, you can create, add, or delete Niches.</p>
-            
             </div>
             <div class="part2">
                 <a href="{{ route('nicheaddpage') }}">Add New</a>
             </div>
-
         </div>
-
         <table class="table" id="datatabel">
             <thead>
                 <tr>
@@ -52,6 +50,9 @@
             </tbody>
         </table>
     </div>
+
+
+    
 @endsection
 @push('script')
     <script type="text/javascript">

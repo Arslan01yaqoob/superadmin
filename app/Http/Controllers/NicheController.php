@@ -12,16 +12,18 @@ class NicheController extends Controller
     public function view()
     {
 
-        $niches = Niche::with('category')->get();
-        return view('Niches.niches', compact('niches'));
+      return     $niches = Niche::with('category')->withCount(['servicesname' => function ($query) {
+            $query->where('status', 1)->where('approval_status','approved');
+        }])->get();
+      
     }
 
     public function addpage()
     {
 
-        $categories = Category::where('status', 1)->get();
+        return   $categories = Category::where('status', 1)->get();
 
-        return view('Niches.add', compact('categories'));
+     
     }
 
     public function status(Request $request)
@@ -54,13 +56,23 @@ class NicheController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function updatepage($id)
+    public function updatepage(Request $request)
     {
+
+        $id= $request->id;
+
         $niche = Niche::with('category')->findorfail($id);
         $categories = Category::where('status', 1)->get();
-        return view('Niches.edit', compact('niche','categories'));
+
+
+
+        return response()->json([
+            'Niche'=>$niche,
+            'Categories' => $categories,         
+        ]);
+    
     }
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // Validate the request data
         $validatedData = $request->validate([
@@ -69,6 +81,8 @@ class NicheController extends Controller
             'niche_description' => 'nullable|string|max:255',
         ]);
     
+$id = $request->id;
+
         $niche = Niche::findOrFail($id);
     
         $niche->niche_name = $validatedData['niche_name'];
@@ -77,7 +91,7 @@ class NicheController extends Controller
     
         $niche->save();
     
-        return redirect()->route('niches')->with('success', 'Niche updated successfully');
+        return response()->json(['success' => true]);
     }
     
 

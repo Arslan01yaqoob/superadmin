@@ -204,7 +204,7 @@ function categoryEditPage(id) {
         success: function (response) {
 
             let imageUrl = `${baseUrl}${response.category_image}`;
-
+            let shortDescription = response.short_description !== null ? response.short_description : '';
             let formHtml = `
                 <div class="container">
                     <div class="top-heading px-1 py-2 d-flex">
@@ -226,7 +226,7 @@ function categoryEditPage(id) {
                                 </div>
                                 <div class="col-md-6 form-group mb-2">
                                     <label class="form-label" for="short_description">Sub Title (Optional):</label>
-                                    <input class="form-control" name="category_subtitle" value="${response.short_description}" type="text" id="category_subtitle" placeholder="Enter sub title for category" maxlength="100">
+                                    <input class="form-control" name="category_subtitle" value="${shortDescription}" type="text" id="category_subtitle" placeholder="Enter sub title for category" maxlength="100">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6 form-group mb-2">
@@ -252,30 +252,26 @@ function categoryEditPage(id) {
             document.getElementById('categoryEditForm').addEventListener('submit', function (event) {
                 event.preventDefault();
 
+
                 let categoryNameError = document.getElementById('categoryNameError');
                 let categoryImageError = document.getElementById('categoryImageError');
-
+                
                 categoryNameError.textContent = '';
                 categoryImageError.textContent = '';
-
+                
                 let categoryId = document.getElementById('category_id').value;
                 let categoryName = document.getElementById('category_name').value.trim();
                 let subtitle = document.getElementById('category_subtitle').value.trim();
                 let categoryImage = document.getElementById('category_image').files[0];
-
+           
                 if (categoryName === '') {
                     categoryNameError.textContent = 'Category name is required.';
                     return;
                 }
-
-                // Optional validation: If the user doesn't select an image, the old image will remain.
-                if (!categoryImage) {
-                    categoryImageError.textContent = 'Category image is required.';
-                    return;
-                }
-
+             
+            
                 let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+                
                 let formData = new FormData();
                 formData.append('category_id', categoryId);
                 formData.append('category_name', categoryName);
@@ -284,6 +280,8 @@ function categoryEditPage(id) {
                     formData.append('category_image', categoryImage);
                 }
                 formData.append('_token', csrfToken);
+                
+             
 
                 $.ajax({
                     url: updatecategoriesinfo, // Define the correct route for category update
@@ -315,9 +313,15 @@ function categoryEditPage(id) {
                             title: 'Error',
                             text: 'An error occurred: ' + error,
                         });
+                        getCategories();
                     }
                 });
             });
+
+
+
+
+
         },
 
         error: function (xhr, status, error) {
@@ -327,7 +331,27 @@ function categoryEditPage(id) {
     });
 }
 
+  // updating category status
+  function updateCategoryStatus(id) {
+    startLoading();
 
+    $.ajax({
+        url: categoriesstatusupdate,
+        type: "Get",
+        data: {
+            _token: "{{ csrf_token() }}",
+            id: id,
+        },
+        success: function(response) {
+            if (response.success) {
+                console.log("Status updated successfully!");
+            } else {
+                console.log("Failed to update status.");
+            }
+        },
+    });
+    stopLoading();
+}
 
 
 function validsize() {

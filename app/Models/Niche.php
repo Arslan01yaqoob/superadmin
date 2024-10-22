@@ -16,6 +16,10 @@ public function category(){
 return $this->belongsTo(Category::class,'category_id');
 }
 
+public function servicesname(){
+return $this->hasMany(Services_names::class,'niche_id');
+
+}
 
 
 }

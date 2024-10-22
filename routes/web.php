@@ -40,8 +40,8 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/niche/addpage', [NicheController::class, 'addpage'])->name('nicheaddpage');
     Route::get('/updatenichestatus', [NicheController::class, 'status'])->name('updatenichestatus');
     Route::post('/addniche', [NicheController::class, 'add'])->name('addniche');
-    Route::get('niche/updatepage/{id}', [NicheController::class, 'updatepage'])->name('nicheupdatepage');
-    Route::post('update/niche/{id}', [NicheController::class, 'update'])->name('updateniche');
+    Route::get('niche/updatepage', [NicheController::class, 'updatepage'])->name('nicheupdatepage');
+    Route::post('update/niche', [NicheController::class, 'update'])->name('updateniche');
 
     // working for ServiceNames
     Route::get('/servicesnames', [ServiceNameController::class, 'view'])->name('service.names');
@@ -50,8 +50,8 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/get-niches/according/category/{id}', [ServiceNameController::class, 'details'])->name('getniches');
     Route::Post('/add-new/servicename', [ServiceNameController::class, 'add'])->name('addnewservicename');
     Route::get('/update/service-name/status', [ServiceNameController::class, 'status'])->name('servicenamestatusupdate');
-    Route::get('/service-name/updatepage/{id}',[ServiceNameController::class,'updatepage'])->name('servicenameupdatepage');
-    Route::post('/service-name/update/{id}',[ServiceNameController::class,'update'])->name('updateservicesname');
+    Route::get('/service-name/updatepage',[ServiceNameController::class,'updatepage'])->name('servicenameupdatepage');
+    Route::post('/service-name/update',[ServiceNameController::class,'update'])->name('updateservicesname');
 
 
 

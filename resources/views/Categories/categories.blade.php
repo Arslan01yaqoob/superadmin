@@ -91,7 +91,7 @@
         // updating category status
         function updateStatus(id) {
             $.ajax({
-                url: "{{ route('updatecategorystatus') }}",
+                url: categoriesstatusupdate,
                 type: "Get",
                 data: {
                     _token: "{{ csrf_token() }}",
