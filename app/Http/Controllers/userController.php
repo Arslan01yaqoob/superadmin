@@ -86,6 +86,7 @@ class userController extends Controller
                 'password' =>'required|string|min:6'
             ]);
 
+            
         $user = new User;
 
         if ($request->hasFile('profilepicinput')) {
@@ -103,7 +104,6 @@ class userController extends Controller
             if ($imageprofileSize > $maxprofileSize) {
                 $img->resize(180, 180);
             }
-
 
             $img->toJpeg(80)->save(base_path('public/images/users/profilepic/' . $filename));
 

@@ -72,8 +72,6 @@ function getServicesName() {
         }
     });
 }
-
-
 function serviceNameAddPageform() {
     startLoading();
     let contentArea = $('#content-area');
@@ -236,10 +234,6 @@ function serviceNameAddPageform() {
         }
     });
 }
-
-
-
-
 function getNichesDetails() {
     var cateid = $('#category_id').val();
     if (cateid) {
