@@ -11,48 +11,46 @@ class OnboardingController extends Controller
     public function view()
     {
 
-        $ads = Onboarding::get();
-        return view('onboarding.onboardingads', compact('ads'));
-    }
-    public function addpage()
-    {
-
-
-        return view('onboarding.add');
+        return  $ads = Onboarding::get();
+      
+        
     }
 
     public function add(Request $request)
-    {
+{
+    $onboardingCount = Onboarding::count();
 
-        $onboardingCount = Onboarding::count();
-        if ($onboardingCount >= 3) {
-            return redirect()->route('onboarding')->with('error', 'You can only add up to 3 onboarding entries.');
-        }
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'category_subtitle' => 'required|string|max:500',
-            'onboarding_image' => 'required|file', // validates image and JSON file
-        ]);
-
-        $file = $request->file('onboarding_image');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('assets/onboarding_images'), $filename);
-        $imagepath = 'assets/onboarding_images/' . $filename;
-
-
-
-        $onboarding = new Onboarding;
-        $onboarding->image_url = $imagepath;
-        $onboarding->title = $request->title;
-        $onboarding->subtitle = $request->category_subtitle;
-
-
-        if ($onboarding->save()) {
-            return redirect()->route('onboarding')->with('success', 'Data has been successfully saved.');
-        } else {
-            return redirect()->back()->with('error', 'sorry data does not saved successfully');
-        }
+    if ($onboardingCount >= 3) {
+        return response()->json([
+            'success' => false,
+            'error' => 'Failed to add onboarding item. Only three advertisements are allowed at a time.'
+        ], 400);
     }
+
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'subtitle' => 'required|string|max:500',
+        'onboarding_image' => 'required|file', // validates image and JSON file
+    ]);
+
+    $file = $request->file('onboarding_image');
+    $filename = time() . '_' . $file->getClientOriginalName();
+    $file->move(public_path('assets/onboarding_images'), $filename);
+    $imagepath = 'assets/onboarding_images/' . $filename;
+
+    $onboarding = new Onboarding;
+    $onboarding->image_url = $imagepath;
+    $onboarding->title = $request->title;
+    $onboarding->subtitle = $request->subtitle;
+
+    $onboarding->save();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Onboarding item added successfully!'
+    ]);
+}
+
 
     public function status(Request $request)
     {
@@ -73,7 +71,8 @@ class OnboardingController extends Controller
         }
         $onboarding->delete();
 
-        return redirect()->route('onboarding')->with('success', 'Data Deleted successfully');
+        return response()->json(['success' => true]);
+
     }
 
     public function updatepage($id)

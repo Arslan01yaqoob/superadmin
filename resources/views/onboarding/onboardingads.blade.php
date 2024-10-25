@@ -1,5 +1,8 @@
 @extends('Layout.layout')
 @section('main')
+    
+
+
     <div class="container">
         <div class="top-heading px-1 py-2 d-flex">
             <div class="part1">
@@ -7,7 +10,7 @@
                 <p>Welcome to the Onboarding Ads management screen.</p>
             </div>
             <div class="part2">
-                <a href="{{ route('addonboardingpage') }}">Add New</a>
+                <a onclick="OboardingAddpage()">Add New</a>
             </div>
         </div>
 
@@ -62,6 +65,8 @@
         </table>
 
     </div>
+
+
 @endsection
 
 @push('script')

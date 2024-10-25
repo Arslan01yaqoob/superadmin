@@ -218,7 +218,6 @@ function cityEditpage(id) {
                 stopLoading();
                 return;
             }
-        
             // Extract city data, states, and countries
             const city = response.city;
             const countries = response.countries;

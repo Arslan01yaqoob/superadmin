@@ -47,13 +47,11 @@ Route::middleware(['isAdminlogin'])->group(function () {
     Route::get('/servicesnames', [ServiceNameController::class, 'view'])->name('service.names');
     Route::get('/add-new/servicename/page', [ServiceNameController::class, 'addpage'])->name('addservicenamepage');
     Route::get('/edit-page/sericename/', [ServiceNameController::class, 'editpage'])->name('servicenameeditpage');
-    Route::get('/get-niches/according/category/{id}', [ServiceNameController::class, 'details'])->name('getniches');
+    Route::get('/get-niches/according/category', [ServiceNameController::class, 'details'])->name('getnichesbycate'); 
     Route::Post('/add-new/servicename', [ServiceNameController::class, 'add'])->name('addnewservicename');
     Route::get('/update/service-name/status', [ServiceNameController::class, 'status'])->name('servicenamestatusupdate');
     Route::get('/service-name/updatepage',[ServiceNameController::class,'updatepage'])->name('servicenameupdatepage');
     Route::post('/service-name/update',[ServiceNameController::class,'update'])->name('updateservicesname');
-
-
 
     // working for Countries
     Route::get('/countries', [CountryController::class, 'view'])->name('countries');
@@ -83,12 +81,11 @@ Route::middleware(['isAdminlogin'])->group(function () {
 
     // working for onboarding ads 
     Route::get('/get/onboardings', [OnboardingController::class, 'view'])->name('onboarding');
-    Route::get('/add/onboarding/page', [OnboardingController::class, 'addpage'])->name('addonboardingpage');
     Route::post('/addonboarding', [OnboardingController::class, 'add'])->name('addonboarding');
     Route::get('/update/onboardingstatus', [OnboardingController::class, 'status'])->name('updateonboardingstatus');
     Route::post('/delete/onboardingadd', [OnboardingController::class, 'destroy'])->name('deleteonboarding');
-    Route::get('/onboarding/updatepage/{id}', [OnboardingController::class, 'updatepage'])->name('onboardingupdatepage');
-    Route::post('update/onboardingadd/{id}', [OnboardingController::class, 'update'])->name('updateonboarding');
+    Route::get('/onboarding/updatepage', [OnboardingController::class, 'updatepage'])->name('onboardingupdatepage');
+    Route::post('update/onboardingadd', [OnboardingController::class, 'update'])->name('updateonboarding');
 
 
     // working for Users

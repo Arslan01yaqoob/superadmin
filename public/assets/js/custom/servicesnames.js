@@ -51,7 +51,7 @@ function getServicesName() {
                         </td>
                         <td>
                             <div class="button-container">
-                                <a href="{{ route('servicenameupdatepage', ['id' => ${data.id}]) }}" class="btn btn-info">
+                                <a onclick="serviceNameEditPageform()"  class="btn btn-info">
                                     <img src="${editIconUrl}" alt="">
                                 </a>
                             </div>
@@ -234,13 +234,200 @@ function serviceNameAddPageform() {
         }
     });
 }
+
+function serviceNameEditPageform(id) {
+    startLoading();
+    let contentArea = $('#content-area');
+    
+    $.ajax({
+        url: serviceNameUpdatePage, 
+        method: 'GET',
+        data: {id: id},
+        success: function(response) {
+           
+            contentArea.html(`
+                <div class="container">
+                    <div class="top-heading px-1 py-2 d-flex">
+                        <div class="part1">
+                            <h1>Services Names</h1>
+                            <p>Use this page to effortlessly Edit and manage service names.</p>
+                        </div>
+                        <div class="part2"></div>
+                    </div>
+
+                    <div class="form-div">
+                        <h2 class="mb-4 text-center">Edit Service Name</h2>
+                        <form id="ServiceNameEditpage">
+                       
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-2">
+                                    <label class="form-label" for="service_name">Service Name</label>
+                                   <input hidden id="servicenameid" name="servicenameid" value="${response.servicename.id}">
+                                    <input required value="${response.servicename.service_name}" 
+                                           class="form-control " 
+                                           name="service_name" type="text" id="service_name" 
+                                           placeholder="Enter service name" maxlength="50">
+                                  
+                                </div>
+
+                                <div class="col-md-6 form-group mb-2">
+                                    <label class="form-label" for="category_id">Category</label>
+                                    <select required class="form-control " 
+                                            name="category_id" onchange="getNichesDetails()" id="category_id">
+                                        <option value="${response.servicename.category.id}" selected>
+                                            ${response.servicename.category.category_name}
+                                        </option>
+                                        ${response.categories.map(category => 
+                                            category.id !== response.servicename.category.id ? 
+                                            `<option value="${category.id}">${category.category_name}</option>` : ''
+                                        ).join('')}
+                                    </select>
+                                   
+                                </div>
+
+                                <div class="col-md-6 form-group mb-2">
+                                    <label class="form-label" for="niche_id">Niche</label>
+                                    <select required class="form-control " 
+                                            name="niche_id" id="niche_id">
+                                        <option value="${response.servicename.niche.id}" selected>
+                                            ${response.servicename.niche.niche_name}
+                                        </option>
+                                        ${response.niches.map(niche => 
+                                            niche.id !== response.servicename.niche.id ? 
+                                            `<option value="${niche.id}">${niche.niche_name}</option>` : ''
+                                        ).join('')}
+                                    </select>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-2">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `);
+            stopLoading(); // Optionally stop loading animation here
+
+
+
+            document.getElementById('ServiceNameEditpage').addEventListener('submit', function (event) {
+                event.preventDefault();
+            
+                // Get form values
+                let servicenameid  = document.getElementById('servicenameid').value.trim();
+                let serviceName = document.getElementById('service_name').value.trim();
+                let categoryId = document.getElementById('category_id').value.trim();
+                let nicheId = document.getElementById('niche_id').value.trim();
+                let valid = true;
+            
+         
+                if (serviceName === '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Service name is required.',
+                    });
+                    valid = false;
+                }
+            
+              
+                if (categoryId === '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Category is required.',
+                    });
+                    valid = false;
+                }
+            
+               
+                if (nicheId === '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Niche is required.',
+                    });
+                    valid = false;
+                }
+            
+                if (!valid) {
+                    return; 
+                }
+            
+             
+                let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            
+             
+                let formData = new FormData();
+                formData.append('id', servicenameid);
+                formData.append('service_name', serviceName);
+                formData.append('category_id', categoryId);
+                formData.append('niche_id', nicheId);
+                formData.append('_token', csrfToken);
+            
+                
+                $.ajax({
+                    url: serviceNameUpdateInfo, 
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Service name Updated successfully!',
+                            });
+                            document.getElementById('ServiceNameEditpage').reset(); // Reset the form
+                            getServicesName();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to Updated service name. Please try again.',
+                            });
+                            getServicesName();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred: ' + error,
+                        });
+                        getServicesName();
+                    }
+                });
+            });
+
+
+
+
+
+        },
+        error: function(err) {
+            console.error('Error fetching service name details', err);
+            stopLoading(); // Handle errors and stop loading animation here
+        }
+    });
+}
+
+
+
 function getNichesDetails() {
     var cateid = $('#category_id').val();
     if (cateid) {
         $.ajax({
-            // url: '{{ route('getniches', ':id') }}'.replace(':id', cateid),
+            url: getNichesbycategory,
+            data: { id: cateid },
             type: 'GET',
             success: function(response) {
+
                 $('#niche_id').empty();
                 $('#niche_id').append('<option value="" disabled selected>Select your Niche</option>');
                 $.each(response, function(index, nicehs) {
@@ -254,6 +441,25 @@ function getNichesDetails() {
             }
         })
     }
+}
+
+// updating category status
+function updateStatus(id) {
+    $.ajax({
+        url: servicenameStatusUpdate,
+        type: "Get",
+        data: {
+            _token: "{{ csrf_token() }}",
+            id: id,
+        },
+        success: function(response) {
+            if (response.success) {
+                console.log("Status updated successfully!");
+            } else {
+                console.log("Failed to update status.");
+            }
+        },
+    });
 }
 
 // loading bars

@@ -87,25 +87,10 @@
                 });
             @endif
         });
-        // updating category status
-        function updateStatus(id) {
-            $.ajax({
-                url: "{{ route('servicenamestatusupdate') }}",
-                type: "Get",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: id,
-                },
-                success: function(response) {
-                    if (response.success) {
-                        console.log("Status updated successfully!");
-                    } else {
-                        console.log("Failed to update status.");
-                    }
-                },
-            });
-        }
 
+
+
+        
 
 
     </script>

@@ -350,8 +350,6 @@ function nicheAddPage() {
     });
 }
 
-
-
 // 
 function updateNicheStatus(id) {
     $.ajax({

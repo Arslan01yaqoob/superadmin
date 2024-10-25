@@ -129,42 +129,35 @@
                     </a>
 
                     <!-- Submenu -->
-                    <ul
-                        class="submenu {{ in_array(Route::currentRouteName(), ['categories', 'addnewcatepage', 'categoryupdatepage', 'niches', 'nicheaddpage', 'nicheupdatepage', 'service.names']) ? 'active' : '' }}">
-
+                    <ul class="submenu ">
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                                href="{{ route('service.names') }}">
+                            <a class="submenuitem">
                                 <img src="{{ asset('assets/imgs/icons/label.png') }}" alt="">
                                 <span class="text">Services Names</span>
                             </a>
                         </li>
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                                href="{{ route('service.names') }}">
+                            <a class="submenuitem" >
                                 <img src="{{ asset('assets/imgs/icons/Services.png') }}" alt="">
                                 <span class="text">Services</span>
                             </a>
                         </li>
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                                href="{{ route('service.names') }}">
+                            <a class="submenuitem ">
                                 <img src="{{ asset('assets/imgs/icons/niche.png') }}" alt="">
                                 <span class="text">Niches </span>
                             </a>
                         </li>
 
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                                href="{{ route('service.names') }}">
+                            <a class="submenuitem">
                                 <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
                                 <span class="text">Professionals</span>
                             </a>
                         </li>
 
                         <li>
-                            <a class="submenuitem {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }}"
-                                href="{{ route('service.names') }}">
+                            <a class="submenuitem">
                                 <img src="{{ asset('assets/imgs/icons/expert.png') }}" alt="">
                                 <span class="text">Specialists</span>
                             </a>
@@ -172,14 +165,14 @@
                     </ul>
                 </li>
                 <li
-                    class="menu-item {{ in_array(Route::currentRouteName(), ['onboarding', 'addonboardingpage', 'onboardingupdatepage']) ? 'active' : '' }} ">
-                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
+                    class="menu-item ">
+                    <a class="menu-link side-menuitem" onclick="getOnboardings()">
                         <img src="{{ asset('assets/imgs/icons/mentor.png') }}" alt="">
                         <span class="text">Onboarding ads</span>
                     </a>
                 </li>
-                <li class="menu-item {{ in_array(Route::currentRouteName(), ['']) ? 'active' : '' }} ">
-                    <a class="menu-link side-menuitem" href="{{ route('onboarding') }}">
+                <li class="menu-item ">
+                    <a class="menu-link side-menuitem" >
                         <img src="{{ asset('assets/imgs/icons/notification.png') }}" alt="">
                         <span class="text">Notification Broadcasting</span>
                     </a>
@@ -187,7 +180,7 @@
                 {{-- professional section --}}
                 <hr>
                 <li
-                    class="menu-item {{ in_array(Route::currentRouteName(), ['Professional', 'update.prof.page', 'professionaladdpage', 'professionaldetails']) ? 'active' : '' }} ">
+                    class="menu-item ">
                     <a class="menu-link side-menuitem" href="{{ route('Professional') }}">
                         <img src="{{ asset('assets/imgs/icons/clerk.png') }}" alt="">
                         <span class="text">Professionals</span>
@@ -234,11 +227,6 @@
                         <span class="text">Users</span>
                     </a>
                 </li>
-
-
-
-
-
 
             </ul>
 
@@ -319,12 +307,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script type="text/javascript">
 
-// base url of images 
+        // base url of images 
 
-const baseUrl = 'http://127.0.0.1:8000/'; 
+        const baseUrl = 'http://127.0.0.1:8000/'; 
+       
         //  countries page routes
+       
         let countriesUrl = "{{ route('countries') }}";
         let editIconUrl = "{{ asset('assets/imgs/icons/edit.png') }}";
+        let deleteIconUrl = "{{ asset('assets/imgs/icons/bin.png') }}";
+
         let updateCountryUrl = "{{ route('countryupdatepage') }}";
         let countrystatusupdate = "{{ route('updatecountrystatus') }}";
         let addnewcountry = "{{ route('addcountry') }}";
@@ -363,17 +355,26 @@ const baseUrl = 'http://127.0.0.1:8000/';
         let nichesUpdatePage = "{{ route('nicheupdatepage')}}";
         let nichesUpdateInfo = "{{ route('updateniche') }}";
 
-
+ 
         //  route for services names 
         let serviceNameUrl  = "{{ route('service.names') }}";
         let serviceNameAddPage = "{{ route('addservicenamepage') }}";
         let addNewServiceName = "{{ route('addnewservicename') }}";
+        let getNichesbycategory = "{{ route('getnichesbycate') }}";
         let servicenameStatusUpdate = "{{ route('servicenamestatusupdate') }}";
-        let serviceNameUpdatePage = "{{ route('servicenameeditpage') }}";
+        let serviceNameUpdatePage = "{{ route('servicenameupdatepage') }}";
         let serviceNameUpdateInfo = "{{ route('updateservicesname') }}";
 
+        // route for onboarding
+        let getOnboardingads  = "{{ route('onboarding') }}";
+        
+        let addnewonboardingad = "{{ route('addonboarding') }}";
+        let updateonboardingstatus = "{{ route('updateonboardingstatus') }}";
+        let deleteonbaordingad = "{{ route('deleteonboarding') }}";
+        let updateOnboardingpage = "{{ route('onboardingupdatepage') }}";
+        let updateOnboardingad = "{{ route('updateonboarding') }}";
 
-
+       
 
 
 
@@ -386,6 +387,8 @@ const baseUrl = 'http://127.0.0.1:8000/';
     <script src="{{ asset('assets/js/custom/categories.js') }}"></script>
     <script src="{{ asset('assets/js/custom/niches.js') }}"></script>
     <script src="{{ asset('assets/js/custom/servicesnames.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/onboarding.js') }}"></script>
+
 
     @stack('script')
 

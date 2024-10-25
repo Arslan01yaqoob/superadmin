@@ -16,23 +16,16 @@ class ServiceNameController extends Controller
         return  $servicesnames = Services_names::with('niche')
             ->with('category')
             ->get();
-
-    
     }
     public function addpage()
     {
         return  $categories = Category::where('status', '1')->get();
-        
-        
-    
     }
 
-    public function editpage()
+   
+    public function details(request $request)
     {
-        return view('ServicesNames.edit');
-    }
-    public function details($id)
-    {
+        $id = $request->id;
         return $nicehs = Niche::where('status', '1')
             ->where('category_id', $id)
             ->get();
@@ -54,11 +47,7 @@ class ServiceNameController extends Controller
         $service->save();
 
 
-        if ($service->save()) {
-            return redirect()->route('service.names')->with('success', 'service name added successfully!');
-        } else {
-            return back()->with('error', 'There was an error adding the Service name.');
-        }
+        return response()->json(['success' => true]);
     }
 
     public function status(Request $request)
@@ -70,12 +59,14 @@ class ServiceNameController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function updatepage($id)
+    public function updatepage(request $request)
     {
+
+        // $id = $request->id;
 
         $servicename = Services_names::with('niche')
             ->with('category')
-            ->find($id);
+            ->find(2);
 
         $categories = Category::where('status', '1')->get();
         $niches = Niche::where('status', '1')
@@ -83,10 +74,17 @@ class ServiceNameController extends Controller
             ->get();
 
 
-        return view('ServicesNames.edit', compact('servicename', 'categories', 'niches'));
+        return response()->json([
+            'servicename' => $servicename,
+            'categories' => $categories,
+            'niches' => $niches,
+        ]);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+
+        $id = $request->id;
+
         $validatedData = $request->validate([
             'service_name' => 'required|string|max:50',
             'category_id' => 'required|integer|exists:categories,id',
@@ -99,10 +97,11 @@ class ServiceNameController extends Controller
         $service->category_id = $validatedData['category_id'];
         $service->niche_id = $validatedData['niche_id'];
 
-        if ($service->save()) {
-            return redirect()->route('service.names')->with('success', 'Service name updated successfully!');
-        } else {
-            return back()->with('error', 'There was an error updating the Service name.');
-        }
+        $service->save();
+
+
+        return response()->json(['success' => true]);
+        
+        
     }
 }

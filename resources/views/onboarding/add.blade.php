@@ -1,5 +1,7 @@
 @extends('Layout.layout')
 @section('main')
+
+
     <div class="container">
 
 
@@ -63,10 +65,16 @@
             </div>
       
     </div>
+
+
+
+
 @endsection
 @push('script')
 
     <script type="text/javascript">
+
+
         document.getElementById('onboarding_image').addEventListener('change', function(event) {
             const file = event.target.files[0];
             const image = document.getElementById('image');
@@ -90,5 +98,8 @@
                 reader.readAsDataURL(file);
             }
         });
+    
+    
+    
     </script>
 @endpush
